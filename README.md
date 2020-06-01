@@ -1,4 +1,4 @@
-# 2020F_HCI
+# 2020S_HCI
 This is for Design Project in HCI lecture in KAIST. 
 
 
