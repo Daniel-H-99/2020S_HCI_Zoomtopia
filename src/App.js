@@ -1,25 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component, useEffect, Suspense, useContext } from 'react';
+import { Router, Route, Switch, withRouter } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
+
+
+import MainPage from './pages/MainPage';
+
+
+const history = createBrowserHistory();
+
+const ScrollToTop = withRouter(({ children, location: { pathname } }) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return children;
+});
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router history={history}>
+      <ScrollToTop>
+        <Suspense fallback="loading">
+          <Switch>
+            <Route exact path="/" component={MainPage} />
+          </Switch>
+        </Suspense>
+      </ScrollToTop>
+    </Router>
   );
 }
 
