@@ -1,10 +1,15 @@
 import React from 'react';
+import Header from '../components/Header';
+import Main from '../components/Main';
 
 const MainPage = props => {
   return (
     <>
-        <div>Zoomtopia</div>
+        <Header/>
+        <Main>
+        <div>Test</div>
         <div></div>
+        </Main>
     </>
   );
 };
