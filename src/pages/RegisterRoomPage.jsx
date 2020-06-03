@@ -1,12 +1,17 @@
 import React from 'react';
+import Header from '../components/Header';
+import Main from '../components/Main';
+import RegisterForm from '../components/RegisterForm';
 
-const MainPage = props => {
+const RegisterRoomPage = props => {
   return (
     <>
-        <div>Zoomtopia</div>
-        <div></div>
+      <Header/>
+      <Main>
+        <RegisterForm/>
+      </Main>
     </>
   );
 };
 
-export default MainPage;
+export default RegisterRoomPage;
