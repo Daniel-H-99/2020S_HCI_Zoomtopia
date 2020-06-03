@@ -1,0 +1,100 @@
+.Calendar{
+  user-select: none;
+  .head{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3px 5px;
+    button{
+      cursor: pointer;
+      outline: none;
+      display: inline-flex;
+      background: transparent;
+      border: none;
+      font-size: 20pt;
+      padding: px;
+      border-radius: 4px;
+      &:hover{
+        background-color: rgba(gray,0.1);
+      }
+      &:active{
+        background-color: rgba(gray,0.2);
+      }
+    }
+    span.title{
+      cursor:pointer;
+      border-radius: 5px;
+      padding: 6px 12px;
+      &:hover{
+        background-color: rgba(gray,0.1);
+      }
+      &:active{
+        background-color: rgba(gray,0.2);
+      }
+    }
+  }
+  .body{
+    .row{
+      display: flex;
+      cursor: pointer;
+      &:first-child{
+        cursor: initial;
+        .box{
+          font-weight: bold;
+        }
+        .box:hover > span.text{
+          background-color: white;
+        }
+      }
+      .box{
+        position: relative;
+        display: inline-flex;
+        width: calc(100%/7);
+        height: 0;
+        padding-bottom: calc(100%/10);
+        font-size: 14pt;
+        &:first-child{
+          color: red;
+        }
+        &:last-child{
+          color: #588dff;
+        }
+        &.grayed{
+          color: gray;
+        }
+        &:hover{
+          span.text{
+            background-color: rgba(#588dff, 0.05);
+          }
+        }
+        &.istoday{
+          span.text{
+            //background-color: transparent;
+            color: orange;
+            border: 1px solid orange;
+          }
+        }
+        &.ispicked{
+          span.text{
+            //background-color: transparent;
+            background-color: rgba(random(255),random(255),random(255), 0.2);
+            
+          }
+        }
+        span.text{
+          border-radius: 10%;
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+          width: 57%;
+          height: 80%;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%,-50%);
+        }
+      }
+    }
+  }
+}

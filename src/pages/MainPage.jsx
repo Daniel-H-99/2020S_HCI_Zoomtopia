@@ -7,7 +7,7 @@ const MainPage = props => {
     <>
         <Header/>
         <Main>
-        <div>Test</div>
+        <div>Test this one is </div>
         <div></div>
         </Main>
     </>

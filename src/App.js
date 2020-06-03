@@ -4,6 +4,7 @@ import { createBrowserHistory } from 'history';
 
 
 import MainPage from './pages/MainPage';
+import requestPage from './pages/requestComp/requestmanage' ;
 
 
 const history = createBrowserHistory();
@@ -23,7 +24,7 @@ function App() {
       <ScrollToTop>
         <Suspense fallback="loading">
           <Switch>
-            <Route exact path="/" component={MainPage} />
+            <Route exact path="/" component={requestPage} />
           </Switch>
         </Suspense>
       </ScrollToTop>
