@@ -6,7 +6,7 @@ This is for Design Project in HCI lecture in KAIST.
     - Front-end: React.js
     - Back-end: Firebase
     - Hosting: Firebase Hosting
-    - Dependencies : react-create-app, react-router-dom, styled-components
+    - Dependencies : react-create-app, react-router-dom, styled-components, firebase
 
 ## Target User
     The university students lodgers who go back to their hometown need to offer a short-term house rental quickly during vacation 
