@@ -5,11 +5,8 @@ import Main from '../components/Main';
 const MainPage = props => {
   return (
     <>
-      <Header/>
-      <Main>
-        <div>Test</div>
-        <div></div>
-      </Main>
+        <Header/>
+        <Main/>
     </>
   );
 };
