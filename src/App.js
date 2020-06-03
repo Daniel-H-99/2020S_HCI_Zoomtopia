@@ -9,6 +9,7 @@ import MainPage from './pages/MainPage';
 import RegisterRoomPage from './pages/RegisterRoomPage';
 
 
+
 const history = createBrowserHistory();
 
 const firebaseConfig = {

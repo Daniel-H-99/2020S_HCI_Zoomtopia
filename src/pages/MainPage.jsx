@@ -6,6 +6,7 @@ const MainPage = props => {
   return (
     <>
         <Header/>
+
         <Main/>
     </>
   );
