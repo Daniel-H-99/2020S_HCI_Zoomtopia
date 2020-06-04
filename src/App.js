@@ -7,6 +7,8 @@ import 'firebase/firestore';
 
 import MainPage from './pages/MainPage';
 import RegisterRoomPage from './pages/RegisterRoomPage';
+import MyPage from './pages/MyPage';
+import ItemInfo from './pages/ItemInfo';
 
 
 
@@ -41,6 +43,8 @@ function App() {
           <Switch>
             <Route exact path="/" component={MainPage} />
             <Route exact path="/RegisterRoom" component={RegisterRoomPage} />
+            <Route exact path="/MyPage" component={MyPage} />
+            <Route exact path="/ItemInfo" component={ItemInfo} />
           </Switch>
         </Suspense>
       </ScrollToTop>
