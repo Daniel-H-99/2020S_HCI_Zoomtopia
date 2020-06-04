@@ -2,6 +2,7 @@ import React from 'react';
 import YouTube from 'react-youtube';
 
 class YouTubeEmbeded extends React.Component{
+    
     render() {
         const opts = {
             height: '390',
@@ -11,7 +12,7 @@ class YouTubeEmbeded extends React.Component{
             },
         };
 
-        return <YouTube videoId="xqFvYsy4wE4" opts={opts} onReady={this._onReady} />;
+        return <YouTube videoId={this.props.url} opts={opts} onReady={this._onReady} />;
     }
 
     _onReady(event) {

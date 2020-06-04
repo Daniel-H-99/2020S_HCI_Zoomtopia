@@ -44,7 +44,7 @@ function ItemInfoForm(props) {
             <Form.Group>
                 <Form.Label>Intro Video</Form.Label>
                 <Form.Control placeholder="Intro Video" disabled />
-                <YoutubeEmbeded />
+                <YoutubeEmbeded url="xqFvYsy4wE4" />
             </Form.Group>            
             <Form.Group>
                 <Form.Label>Location</Form.Label>
