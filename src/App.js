@@ -7,9 +7,11 @@ import { createBrowserHistory } from 'history';
 
 import MainPage from './pages/MainPage';
 import RegisterRoomPage from './pages/RegisterRoomPage';
+
+import RequestManage from './pages/requestComp/RequestManage'
+import SampleReq from './pages/requestComp/sampleReq';
 import MyPage from './pages/MyPage';
 import ItemInfo from './pages/ItemInfo';
-
 
 
 const history = createBrowserHistory();
@@ -43,8 +45,12 @@ function App() {
           <Switch>
             <Route exact path="/" component={MainPage} props={true}/>
             <Route exact path="/RegisterRoom" component={RegisterRoomPage} />
+
+            <Route exact path= "/requestM" component={RequestManage}/>
+            <Route exact path= "/testsample" component={SampleReq}/>
             <Route exact path="/MyPage" component={MyPage} />
             <Route exact path="/ItemInfo" component={ItemInfo} />
+
           </Switch>
         </Suspense>
       </ScrollToTop>

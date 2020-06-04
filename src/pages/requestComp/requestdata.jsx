@@ -1,6 +1,8 @@
 import React from 'react';
+import {Button, Card, CardDeck} from 'react-bootstrap';
 import './requestdata.scss';
 import { render } from '@testing-library/react';
+
 
 class reqData extends React.Component {
 
@@ -23,9 +25,7 @@ class ConfirmData extends React.Component {
  
   render() {
     return (
-      <button onClick={this.handleClick}>
-        Confirm
-      </button>
+      <Button variant="primary" onClick={this.handleClick} >Confirm</Button>
     );
   } 
 }
