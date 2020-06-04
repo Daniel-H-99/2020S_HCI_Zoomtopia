@@ -1,18 +1,8 @@
 import React from 'react';
-//import './Calendar.scss';
-import Salendar from './Calendar.jsx';
+import SampleReq from './SampleReq.jsx';
 import PageTitle from './pagetitle.jsx';
 import PageData from './requestdata.jsx';
 import { render } from '@testing-library/react';
-
-var datedata = [
-  {startY:"2020"},
-  {startM:"6"},
-  {startD:"12"},
-  {endY:"2020"},
-  {endM:"6"},
-  {endD:"29"}
-];
 
 class Calview extends React.Component {
   state={
@@ -23,26 +13,28 @@ class Calview extends React.Component {
       //position: 'absolute',
       //left: '50%',
       //transform: "translate(-50%, 10%)",
-      //float: 'left',
-    
-      margin: '0 auto',
-      padding: "10px",
-      width: "500px",
-      height: "370px",
+      float: 'left',
+      margin: '10px auto',
+      marginLeft: '80px',
+      paddingLeft: "10px",
+      paddingRight: "10px",
+      paddingTop: "10px",
       minheight: "100px",
-      border : '2px solid lightblue',
-      borderRadius: '6%'
+      border : '0px solid lightblue',
+      borderRadius: '1%'
       //backgroundColor: '#f6f6f6'
       //overflow: "auto"
     };
     return (
-      <div style={mystyle}><Salendar/>
+      <section>
+      <div style={mystyle}><SampleReq/>
       </div>
+      </section>
     );
   }
 }
 
-class Requestmanage extends React.Component{
+class RequestManage extends React.Component{
   state = {
     title: 'hello'
   }
@@ -53,7 +45,7 @@ class Requestmanage extends React.Component{
       alignItems: 'center',
     }
     return (
-      <main style={thisstyle}>
+      <main>
         <section>
           <PageTitle id = "mytitle1"/>
         </section>
@@ -69,6 +61,6 @@ class Requestmanage extends React.Component{
   }
 }
 
-export default Requestmanage;
+export default RequestManage;
 
 //   <Calview id="cal1"/>

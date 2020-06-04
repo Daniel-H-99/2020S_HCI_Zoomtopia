@@ -7,8 +7,8 @@ import 'firebase/firestore';
 
 import MainPage from './pages/MainPage';
 import RegisterRoomPage from './pages/RegisterRoomPage';
-
-
+import RequestManage from './pages/requestComp/RequestManage'
+import SampleReq from './pages/requestComp/sampleReq';
 
 const history = createBrowserHistory();
 
@@ -41,6 +41,8 @@ function App() {
           <Switch>
             <Route exact path="/" component={MainPage} />
             <Route exact path="/RegisterRoom" component={RegisterRoomPage} />
+            <Route exact path= "/requestM" component={RequestManage}/>
+            <Route exact path= "/testsample" component={SampleReq}/>
           </Switch>
         </Suspense>
       </ScrollToTop>
