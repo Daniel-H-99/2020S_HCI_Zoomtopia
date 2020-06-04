@@ -39,7 +39,7 @@ function App() {
       <ScrollToTop>
         <Suspense fallback="loading">
           <Switch>
-            <Route exact path="/" component={MainPage} />
+            <Route exact path="/" component={MainPage} props={true}/>
             <Route exact path="/RegisterRoom" component={RegisterRoomPage} />
           </Switch>
         </Suspense>
