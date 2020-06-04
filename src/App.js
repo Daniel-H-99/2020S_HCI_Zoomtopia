@@ -9,7 +9,7 @@ import MainPage from './pages/MainPage';
 import RegisterRoomPage from './pages/RegisterRoomPage';
 
 import RequestManage from './pages/requestComp/RequestManage'
-import SampleReq from './pages/requestComp/sampleReq';
+import SampleReq from './pages/requestComp/SampleReq';
 import MyPage from './pages/MyPage';
 import ItemInfo from './pages/ItemInfo';
 
