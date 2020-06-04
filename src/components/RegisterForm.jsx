@@ -1,4 +1,5 @@
 import React, { useState, Component } from 'react';
+import { Button, FormControl, Form, FormGroup } from 'react-bootstrap';
 import styled from 'styled-components';
 
 const LeftInput = styled.span`
@@ -38,6 +39,12 @@ const Explanation = styled.input`
   background: papayawhip;
   border: none;
   border-radius: 3px;
+`
+const Margin = styled.div`
+  display: inline-block;
+  width: 70%;
+  vertical-align: middle;
+  margin: 0 auto;
 `
 
 class RegisterForm extends Component {
@@ -185,7 +192,25 @@ class RegisterForm extends Component {
         </div>
         <div>{this.state.RoomName}</div> 
         <div>{this.state.Location}</div>
+        <Margin>
+          <Form>
+            <Form.Group controlId="RoomName">
+              <Form.Label>Room Name</Form.Label>
+              <Form.Control type="RoomName" placeholder="Room Name" />
+            </Form.Group>
+
+            <Form.Group controlId="Location">
+              <Form.Label>Location</Form.Label>
+              <Form.Control type="Location" placeholder="Location" />
+            </Form.Group>
+
+            <Button variant="primary" type="submit">
+              Register
+            </Button>
+          </Form>
+        </Margin>
       </form>
+      
     );
   }
 }
