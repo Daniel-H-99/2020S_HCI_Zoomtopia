@@ -1,8 +1,22 @@
 import React, { useState, Component } from 'react';
 import {Form, Row, Col} from 'react-bootstrap';
 import YoutubeEmbeded from '../components/YouTubeEmbeded';
+import firebase from '../components/Firestore';
 
 function ItemInfoForm(props) {
+
+    //props에서 어떤 user의 data를 받아올지 정하기
+    //현재는 그냥 user2 정보 가져옴
+    const db = firebase.firestore();
+    const userDoc = db.collection('userID').doc('user2');
+    userDoc.get().then(function(doc){
+        if (doc.exists) {
+            console.log(doc.data().MyRegister.cost);
+        } else {
+            console.log("no such doc exsits");
+        }
+    });
+
     return(
         <Form>
             <Form.Group as={Row}> 
