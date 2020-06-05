@@ -4,9 +4,10 @@ import YoutubeEmbeded from '../components/YouTubeEmbeded';
 import firebase from '../components/Firestore';
 
 function ItemInfoForm(props) {
+    //TODO: useState 객체로 해서 여러개 동시에 관리하기
     const[roomName, setRoomName] = useState('');
 
-    //props에서 어떤 user의 data를 받아올지 정하기
+    //TODO: props에서 어떤 user의 data를 받아올지 정하기
     //현재는 그냥 user2 정보 가져옴
     const db = firebase.firestore();
     const userDoc = db.collection('userID').doc('user2');
