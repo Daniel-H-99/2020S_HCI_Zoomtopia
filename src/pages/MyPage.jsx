@@ -29,9 +29,9 @@ const MyPage = props => {
                 <ListGroupItem>Contract Status</ListGroupItem>
             </ListGroup>
             <Card.Body>
-                <Card.Link href="#">View detail</Card.Link>
-                <Card.Link href="#">
-                    Check Request<Badge variant="light">4</Badge>
+                <Card.Link href="/ItemInfo">View detail</Card.Link>
+                <Card.Link href="/RequestM">
+                  Check Request<Badge variant="light">4</Badge>
                 </Card.Link>
             </Card.Body>
             </Card>
