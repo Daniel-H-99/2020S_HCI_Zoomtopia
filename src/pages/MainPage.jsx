@@ -4,13 +4,10 @@ import {Button, Card, CardDeck} from 'react-bootstrap';
 import Main from '../components/Main';
 import { Route, Link } from 'react-router-dom';
 const MainPage = props => {
-   if (props.location.state != null){
-  console.log(props.location.state.p)   	
-   }
-
+  const {authed, user} = props;
   return (
     <>
-      <Header {...props}/>
+      <Header {...props} />
       <Main>
         <h3>Hello! This is Roomtopia. Offer or Discover your Short-Term Rental House Quickly.</h3><br/><br/><br/>
         <div style={{width: '100%', margin: 'auto', paddingBottom: 10}}>
@@ -21,7 +18,7 @@ const MainPage = props => {
         		p : "passed"
         	}
         }}>
-        <Button style={{float: 'right'}} variant="primary">+ Register Offer</Button>
+        {authed?<Button style={{float: 'right'}} variant="primary">+ Register Offer</Button>:null}
         </Link>
         </div>
         <CardDeck style={{width: '50%'}}>

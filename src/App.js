@@ -1,5 +1,5 @@
-import React, { Component, useEffect, Suspense, useContext } from 'react';
-import { Router, Route, Switch, withRouter } from 'react-router-dom';
+import React, { Component, useEffect, Suspense, useContext, useState} from 'react';
+import { Router, Route, Switch, withRouter, Redirect} from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 //import firebase from 'firebase';
 //import 'firebase/firestore';
@@ -12,8 +12,8 @@ import RequestManage from './pages/requestComp/RequestManage'
 import SampleReq from './pages/requestComp/SampleReq';
 import MyPage from './pages/MyPage';
 import ItemInfo from './pages/ItemInfo';
-
-
+import SignInModal from './components/SignInModal'
+import Auth from './components/Auth'
 const history = createBrowserHistory();
 
 // const firebaseConfig = {
@@ -37,20 +37,26 @@ const ScrollToTop = withRouter(({ children, location: { pathname } }) => {
 });
 
 
-function App() {
+function App(props) {
+  const [user, setUser] = useState(null);
+  const [authed, setAuthed] = useState(false);
+  const AuthGate = (props) => authed? props.children : <Redirect to={{
+    pathname:"/SignInModal"}}/> 
   return (
     <Router history={history}>
       <ScrollToTop>
         <Suspense fallback="loading">
           <Switch>
-            <Route exact path="/" component={MainPage} props={true}/>
-            <Route exact path="/RegisterRoom" component={RegisterRoomPage} />
-
-            <Route exact path= "/requestM" component={RequestManage}/>
-            <Route exact path= "/testsample" component={SampleReq}/>
-            <Route exact path="/MyPage" component={MyPage} />
-            <Route exact path="/ItemInfo" component={ItemInfo} />
-
+            <Route exact path="/" render={props => <MainPage {...props} user={user} authed={authed}/>}/>
+            <Route exact path="/Auth" render={props => <Auth {...props} setUser={setUser} setAuthed={setAuthed}/>}/> 
+            <Route exact path="/SignInModal" render={props => <SignInModal {...props} show={true}/>}/>            
+            <AuthGate>
+              <Route exact path="/RegisterRoom" render={props => <RegisterRoomPage {...props}/>} />
+              <Route exact path= "/requestM" component={props => <RequestManage {...props}/>} />
+              <Route exact path= "/testsample" component={props => <SampleReq {...props}/>} />
+              <Route exact path="/MyPage" component={props => <MyPage {...props}/>} />
+              <Route exact path="/ItemInfo" component={props => <ItemInfo {...props}/>} />
+            </AuthGate>
           </Switch>
         </Suspense>
       </ScrollToTop>
