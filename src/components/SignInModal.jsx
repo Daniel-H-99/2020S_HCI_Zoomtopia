@@ -8,15 +8,32 @@ const SignInModal = (props) => {
   const [signIn, convert] = useState(true);
   const emailRef = useRef();
   const pwRef = useRef();
+  const nameRef = useRef();
   const [submit, setSubmit] = useState(false);
   const [email, setEmail] = useState('');
   const [pw, setPW] = useState('');
+  const [name, setName] = useState('');
   const onSubmit = () => {
+    if (!signIn){
+      setName(nameRef.current.value);
+    }
     setEmail(emailRef.current.value);
     setPW(pwRef.current.value);
     setSubmit(true);
   }
   if (submit) {
+    if (!signIn){
+      console.log('sending')
+      
+      return <Redirect to={{
+              pathname: '/AddAuth',
+              state: {
+                name: name,
+                email: email,
+                pw: pw
+              }
+            }}/>;      
+    }
     return <Redirect to={{
             pathname: '/Auth',
             state: {
@@ -25,7 +42,6 @@ const SignInModal = (props) => {
             }
           }}/>;
   }
-
   return (
     signIn?
     <Modal
@@ -40,7 +56,7 @@ const SignInModal = (props) => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form action="/Auth">
+        <Form>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control ref={emailRef} name = 'email' type="email" placeholder="Enter email" />
@@ -80,28 +96,28 @@ const SignInModal = (props) => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form action="/Auth">
+        <Form>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
-            <Form.Control name = 'email' type="email" placeholder="Enter email" />
+            <Form.Control ref={emailRef} name = 'email' type="email" placeholder="Enter email" />
             <Form.Text className="text-muted">
               We'll never share your email with anyone else.
             </Form.Text>
           </Form.Group>
           <Form.Group controlId="formBasicName">
             <Form.Label>Name</Form.Label>
-            <Form.Control name = 'name' type="name" placeholder="Enter Name" />
+            <Form.Control ref={nameRef} name = 'name' type="name" placeholder="Enter Name" />
             <Form.Text className="text-muted">
               First name/ Second name
             </Form.Text>
           </Form.Group>
           <Form.Group controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
-            <Form.Control name = 'pw' type="password" placeholder="Password" />
+            <Form.Control ref={pwRef} name = 'pw' type="password" placeholder="Password" />
           </Form.Group>
           <Form.Row className="align-items-center">
             <div style={{margin: 'auto'}}>
-            <Button variant="dark" type="submit" >
+            <Button variant="dark" type="submit" onClick={onSubmit}>
                 Submit
             </Button>
             </div>

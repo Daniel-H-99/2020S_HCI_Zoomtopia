@@ -12,8 +12,9 @@ import RequestManage from './pages/requestComp/RequestManage'
 import SampleReq from './pages/requestComp/SampleReq';
 import MyPage from './pages/MyPage';
 import ItemInfo from './pages/ItemInfo';
-import SignInModal from './components/SignInModal'
-import Auth from './components/Auth'
+import SignInModal from './components/SignInModal';
+import Auth from './components/Auth';
+import AddAuth from './components/AddAuth';
 const history = createBrowserHistory();
 
 // const firebaseConfig = {
@@ -48,7 +49,8 @@ function App(props) {
         <Suspense fallback="loading">
           <Switch>
             <Route exact path="/" render={props => <MainPage {...props} user={user} authed={authed}/>}/>
-            <Route exact path="/Auth" render={props => <Auth {...props} setUser={setUser} setAuthed={setAuthed}/>}/> 
+            <Route exact path="/Auth" render={props => <Auth {...props} setUser={setUser} setAuthed={setAuthed}/>}/>
+            <Route exact path="/AddAuth" component = {AddAuth}/> 
             <Route exact path="/SignInModal" render={props => <SignInModal {...props} show={true}/>}/>            
             <AuthGate>
               <Route exact path="/RegisterRoom" render={props => <RegisterRoomPage {...props}/>} />
