@@ -11,6 +11,7 @@ const MyPage = props => {
   const [explanation, setExplanation] = useState('');
   const [cost, setCost] = useState(0);
   const [term, setTerm] = useState('');
+  const [location, setLocation] = useState('');
 
   const db = firebase.firestore();
   const userDoc = db.collection('userID').doc('user2');
@@ -23,6 +24,7 @@ const MyPage = props => {
       setExplanation(myRegister.explanation);
       setCost(myRegister.cost);
       setTerm(myRegister.term);
+      setLocation(myRegister.location);
   });
 
   return (
@@ -30,7 +32,7 @@ const MyPage = props => {
       <Header/>
       <Main>
         <div>This is MyPage</div>
-        <MyPageCard roomName={roomName} explanation={explanation} term={term} cost={cost} requestNum={requestNum} />
+        <MyPageCard roomName={roomName} explanation={explanation} term={term} cost={cost} requestNum={requestNum} location={location}/>
       </Main>
     </>
   );

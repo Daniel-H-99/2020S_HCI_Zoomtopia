@@ -1,10 +1,19 @@
 import React, {useState} from 'react';
-import {Card, Badge, ListGroup, ListGroupItem, Button, Modal, InputGroup, FormControl, Form} from 'react-bootstrap';
+import {Card, Badge, ListGroup, ListGroupItem, Button, Modal, FormControl, Form} from 'react-bootstrap';
 
 function MyPageCard(props) {
     const [show, setShow] = useState(false);
+    const [defaultText, setDefaultText] = useState('');
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleSuccess = () => {
+        setShow(false);
+        alert("Email has been sent successfully!");
+    }
+    const handleShow = () => {
+        const defaultContent = "Location: " + props.location + "\nCost: " + props.cost + "\nTerm: " + props.term;
+        setDefaultText(defaultContent);
+        setShow(true);
+    }
 
   return (
         <Card style={{ width: '18rem' }}>
@@ -30,20 +39,23 @@ function MyPageCard(props) {
                         <Modal.Title>Email Advertisement</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                    <Form.Group controlId="domainCheckBox">
-                        <Form.Check type="checkbox" label="KAIST" />
-                        <Form.Check type="checkbox" label="CMU" />
-                        <Form.Check type="checkbox" label="MIT" />
-                    </Form.Group> 
-                    <InputGroup>
-                        <FormControl as="textarea" aria-label="With textarea" />
-                    </InputGroup>
+                        <Form.Label>Select target community</Form.Label>
+                        <Form.Group controlId="domainCheckBox">
+                            <Form.Check inline type="checkbox" label="KAIST" />
+                            <Form.Check inline type="checkbox" label="CMU" />
+                            <Form.Check inline type="checkbox" label="MIT" />
+                        </Form.Group> 
+                        <Form.Group>
+                            <Form.Label>Please fill in the promotional content</Form.Label>
+                            <FormControl defaultValue="[Roomtopia] Check new room!"/>
+                            <FormControl as="textarea" rows="5" defaultValue={defaultText}/>
+                        </Form.Group>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>
                             Close
                         </Button>
-                        <Button variant="primary" onClick={handleClose}>
+                        <Button variant="primary" onClick={handleSuccess}>
                             Send
                         </Button>
                     </Modal.Footer>
