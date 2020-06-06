@@ -14,7 +14,7 @@ class ConfirmData extends React.Component {
   constructor(props) {
     super(props);
     this.state = {isToggleOn: true};
- 
+
     this.handleClick = this.handleClick.bind(this);
   }
   handleClick() {
@@ -22,12 +22,12 @@ class ConfirmData extends React.Component {
       isToggleOn: !prevState.isToggleOn
     }));
   }
- 
+
   render() {
     return (
       <Button variant="primary" onClick={this.handleClick} >Confirm</Button>
     );
-  } 
+  }
 }
 
 
@@ -65,12 +65,28 @@ class PageData extends React.Component {
         <h3 className = "requesttitle">
           {this.state.title}
         </h3>
-        <div className="userrequest">
-        {this.state.request1}<MyCheckbox/>
-        </div>
-        <div className="userrequest">
-        {this.state.request2}<MyCheckbox/>
-        </div>
+        <section>
+        <Card style={{ width: '18rem' }}>
+          <Card.Body>
+            <Card.Title>{this.state.request1}</Card.Title>
+            <Card.Text className="userrequest">
+              {this.state.request1}
+              <MyCheckbox/>
+              </Card.Text>
+          </Card.Body>
+        </Card>
+        </section>
+        <section>
+        <Card style={{ width: '18rem' }}>
+          <Card.Body>
+            <Card.Title>{this.state.request2}</Card.Title>
+            <Card.Text className="userrequest">
+              {this.state.request2}
+              <MyCheckbox style={{float: 'right'}}/>
+            </Card.Text>
+          </Card.Body>
+        </Card>
+        </section>
         <div className="confirmbutton">
         <ConfirmData/>
         </div>
@@ -86,9 +102,9 @@ class MyApp extends React.Component {
   state = {
     date: new Date(),
   }
- 
+
   onChange = date => this.setState({ date })
- 
+
   render() {
     return (
       <div>
