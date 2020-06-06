@@ -6,11 +6,11 @@ import MyPageCard from "../components/MyPageCard";
 
 
 const MyPage = props => {
-  const[requestNum, setRequestNum] = useState(0);
-  const[roomName, setRoomName] = useState('');
-  const[explanation, setExplanation] = useState('');
-  const[cost, setCost] = useState(0);
-  const[term, setTerm] = useState('');
+  const [requestNum, setRequestNum] = useState(0);
+  const [roomName, setRoomName] = useState('');
+  const [explanation, setExplanation] = useState('');
+  const [cost, setCost] = useState(0);
+  const [term, setTerm] = useState('');
 
   const db = firebase.firestore();
   const userDoc = db.collection('userID').doc('user2');
