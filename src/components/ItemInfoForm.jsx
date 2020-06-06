@@ -4,17 +4,29 @@ import YoutubeEmbeded from '../components/YouTubeEmbeded';
 import firebase from '../components/Firestore';
 
 function ItemInfoForm(props) {
-    //TODO: useState 객체로 해서 여러개 동시에 관리하기
-    const[roomName, setRoomName] = useState('');
+    const [roomName, setRoomName] = useState('');
+    const [explanation, setExplanation] = useState('');
+    const [cost, setCost] = useState(0);
+    const [term, setTerm] = useState('');
+    const [roomStructure, setRoomStructure] = useState('');
+    const [roomSize, setRoomSize] = useState(0);
+    const [location, setLocation] = useState('');
+
 
     //TODO: props에서 어떤 user의 data를 받아올지 정하기
     //현재는 그냥 user2 정보 가져옴
     const db = firebase.firestore();
-    const userDoc = db.collection('userID').doc('user2');
+    const userDoc = db.collection('userID').doc(props.userID);
 
     userDoc.get().then(function(doc){
         const myRegister = doc.data().MyRegister;
         setRoomName(myRegister.roomName);
+        setExplanation(myRegister.explanation);
+        setCost(myRegister.cost);
+        setTerm(myRegister.term);
+        setRoomStructure(myRegister.roomStructure);
+        setRoomSize(myRegister.roomSize);
+        setLocation(myRegister.location);
     });
 
 
@@ -28,20 +40,20 @@ function ItemInfoForm(props) {
             </Form.Group>
             <Form.Group>
                 <Form.Label>Cost</Form.Label>
-                <Form.Control placeholder="" disabled />
+                <Form.Control placeholder={cost} disabled />
 
             </Form.Group>
             <Form.Group>
                 <Form.Label>Term</Form.Label>
-                <Form.Control placeholder="" disabled />
+                <Form.Control placeholder={term} disabled />
             </Form.Group>
             <Form.Group>
                 <Form.Label>Room Structure</Form.Label>
-                <Form.Control placeholder="" disabled />
+                <Form.Control placeholder={roomStructure} disabled />
             </Form.Group>
             <Form.Group>
                 <Form.Label>Room Size</Form.Label>
-                <Form.Control placeholder="" disabled />
+                <Form.Control placeholder={roomSize} disabled />
             </Form.Group>
             <Form.Group>
                 <Form.Label>Options</Form.Label>
@@ -53,7 +65,7 @@ function ItemInfoForm(props) {
             </Form.Group>
             <Form.Group>
                 <Form.Label>Explanation</Form.Label>
-                <Form.Control placeholder="" disabled />
+                <Form.Control placeholder={explanation} disabled />
             </Form.Group>
             <Form.Group>
                 <Form.Label>Intro Video</Form.Label>
@@ -62,7 +74,7 @@ function ItemInfoForm(props) {
             </Form.Group>            
             <Form.Group>
                 <Form.Label>Location</Form.Label>
-                <Form.Control placeholder="" disabled />
+                <Form.Control placeholder={location} disabled />
             </Form.Group>
         </Form>
     )

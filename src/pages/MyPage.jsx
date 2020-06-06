@@ -1,40 +1,38 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Header from '../components/Header';
 import Main from '../components/Main';
 import firebase from '../components/Firestore';
-import {Card, CardDeck, Badge, ListGroup, ListGroupItem} from 'react-bootstrap';
+import MyPageCard from "../components/MyPageCard";
+
 
 const MyPage = props => {
+  const [requestNum, setRequestNum] = useState(0);
+  const [roomName, setRoomName] = useState('');
+  const [explanation, setExplanation] = useState('');
+  const [cost, setCost] = useState(0);
+  const [term, setTerm] = useState('');
+  const [location, setLocation] = useState('');
+
   const db = firebase.firestore();
-//   db.collection("userID").add({
-//       field1: "prop1",
-//       field2: "prop2"
-//   });
+  const userDoc = db.collection('userID').doc('user2');
+
+  userDoc.get().then(function(doc){
+      const myRegister = doc.data().MyRegister;
+      const requests = myRegister.request;
+      setRequestNum(requests.length);
+      setRoomName(myRegister.roomName);
+      setExplanation(myRegister.explanation);
+      setCost(myRegister.cost);
+      setTerm(myRegister.term);
+      setLocation(myRegister.location);
+  });
+
   return (
     <>
       <Header/>
       <Main>
         <div>This is MyPage</div>
-        <Card style={{ width: '18rem' }}>
-            <Card.Img variant="top" src={require('../images/Sample.png')} />
-            <Card.Body>
-                <Card.Title>Room Name</Card.Title>
-                <Card.Text>
-                Description Text Here
-                </Card.Text>
-            </Card.Body>
-            <ListGroup className="list-group-flush">
-                <ListGroupItem>Period</ListGroupItem>
-                <ListGroupItem>Cost</ListGroupItem>
-                <ListGroupItem>Contract Status</ListGroupItem>
-            </ListGroup>
-            <Card.Body>
-                <Card.Link href="/ItemInfo">View detail</Card.Link>
-                <Card.Link href="/RequestM">
-                  Check Request<Badge variant="light">4</Badge>
-                </Card.Link>
-            </Card.Body>
-            </Card>
+        <MyPageCard roomName={roomName} explanation={explanation} term={term} cost={cost} requestNum={requestNum} location={location}/>
       </Main>
     </>
   );
