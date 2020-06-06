@@ -1,28 +1,62 @@
 import React, {useRef, useState} from 'react';
 import Header from '../components/Header';
-import {Button, Card, CardDeck} from 'react-bootstrap';
+import {Button, Card, CardDeck, ListGroup, ListGroupItem} from 'react-bootstrap';
 import Main from '../components/Main';
 import { Route, Link } from 'react-router-dom';
 import firebase from '../components/Firestore';
 const db = firebase.firestore();
 const findRoomsInDB = (callback) => {
-  const query = db.collection('userID').limit(5);
+  const query = db.collection('userID').limit(10);
   query.get().then(snapshot => {
     const rooms = [];
     snapshot.forEach(doc => {
-      rooms.push(doc.data.myRegister);
+      if (doc.data().MyRegister != null){
+        rooms.push(doc.data().MyRegister);       
+      }
     })
     callback(rooms);
   })  
 }
-
+const queryParser = (url) => {
+  const params = url.split('?')[1].split('&');
+  const result = {};
+  params.map((item) => {
+    const [param, value] = item.split('=');
+    result[param] = value;
+  })
+  return result;
+} 
 const MainPage = props => {
   const {authed, user} = props;
   const deckRef = useRef();
+  const [cards, setCards] = useState(<></>);
   const findCallBack = (rooms) => {
-    const deck = deckRef.current;
+    setCards (
+      <>
+        {rooms.map(room => {
+          const photoURL = room.IntroVideo?queryParser(room.IntroVideo).v : '../images/Sample.png';
+          return (
+          <Card style={{ width: '18rem' }}>
+          <Card.Img variant="top" src={require('../images/Sample.png')} />
+          <Card.Body>
+            <Card.Title>{room.RoomName}</Card.Title>
+            <Card.Text>
+              {room.Explanation}
+            </Card.Text>
+          </Card.Body>
+          <ListGroup className="list-group-flush">
+            <ListGroupItem>{room.Location}</ListGroupItem>
+            <ListGroupItem>{room.RoomSize + '  pyeong'}</ListGroupItem>
+            <ListGroupItem>{room.From}</ListGroupItem>
+          </ListGroup> 
+          <Card.Body>           
+            <Button variant="primary">Go somewhere</Button>
+          </Card.Body>
+        </Card>
+        )})}
+      </>)
   }
-  
+  findRoomsInDB(findCallBack);
   return (
     <>
       <Header {...props} />
@@ -40,29 +74,7 @@ const MainPage = props => {
         </Link>
         </div>
         <CardDeck style={{width: '50%'}}>
-        <Card style={{ width: '18rem' }}>
-          <Card.Img variant="top" src={require('../images/Sample.png')} />
-          <Card.Body>
-            <Card.Title>Card Title</Card.Title>
-            <Card.Text>
-              Some quick example text to build on the card title and make up the bulk of
-              the card's content.
-            </Card.Text>
-            <Button variant="primary">Go somewhere</Button>
-          </Card.Body>
-        </Card>{' '}
-        <Card style={{ width: '18rem' }}>
-          <Card.Img variant="top" src={require('../icons/menu.png')} />
-          <Card.Body>
-            <Card.Title>Card Title</Card.Title>
-            <Card.Text>
-              Some quick example text to build on the card title and make up the bulk of
-              the card's content.
-            </Card.Text>
-            <Button variant="primary">Go somewhere</Button>
-          </Card.Body>
-        </Card>
-        <Card/>
+          {cards}
         </CardDeck>
       </Main>
     </>

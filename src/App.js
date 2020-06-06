@@ -39,8 +39,8 @@ const ScrollToTop = withRouter(({ children, location: { pathname } }) => {
 
 
 function App(props) {
-  const [user, setUser] = useState(null);
-  const [authed, setAuthed] = useState(false);
+  const [user, setUser] = useState('user4');
+  const [authed, setAuthed] = useState(true);
   const AuthGate = (props) => authed? props.children : <Redirect to={{
     pathname:"/SignInModal"}}/> 
   return (
@@ -53,11 +53,11 @@ function App(props) {
             <Route exact path="/AddAuth" component = {AddAuth}/> 
             <Route exact path="/SignInModal" render={props => <SignInModal {...props} show={true}/>}/>            
             <AuthGate>
-              <Route exact path="/RegisterRoom" render={props => <RegisterRoomPage {...props}/>} />
-              <Route exact path= "/requestM" component={props => <RequestManage {...props}/>} />
-              <Route exact path= "/testsample" component={props => <SampleReq {...props}/>} />
-              <Route exact path="/MyPage" component={props => <MyPage {...props}/>} />
-              <Route exact path="/ItemInfo" component={props => <ItemInfo {...props}/>} />
+              <Route exact path="/RegisterRoom" render={props => <RegisterRoomPage {...props} user={user}/>} />
+              <Route exact path= "/requestM" component={props => <RequestManage {...props} user={user}/>} />
+              <Route exact path= "/testsample" component={props => <SampleReq {...props} user={user}/>} />
+              <Route exact path="/MyPage" render={props => <MyPage {...props} user={user}/>} />
+              <Route exact path="/ItemInfo" component={props => <ItemInfo {...props} user={user}/>} />
             </AuthGate>
           </Switch>
         </Suspense>
