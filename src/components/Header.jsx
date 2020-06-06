@@ -93,19 +93,30 @@ const Header = props => {
   return (
     <>
       <NavHeader>
-        <span>
-          {/*<Logo src={require('../images/mamago_logo.png')}></Logo> */}
-          <FontsHeader>Zoomtopia</FontsHeader>
-        </span>
+        <Link to="/">
+          <span>
+            <FontsHeader>Roomtopia</FontsHeader>
+          </span>
+        </Link>
         <ButtonStyle type="button" onClick={onIncrease}>
           <ImageButton src={require('../icons/menu.png')} />
         </ButtonStyle>
-        <ImageButton src={require('../icons/settings.png')} />
-        <ImageButton src={require('../icons/home.png')} />
         {toggle && <SideList />}
         {!authed?
-          <Button style={{float: 'right', marginRight: 10}} onClick={() => {setModalShow(true)}} variant="outline-light">Sign In</Button> :
-          <Button style={{float: 'right', marginRight: 10}} variant="outline-light">{user}</Button>  
+            <Button style={{float: 'right', marginRight: 10}} onClick={() => {setModalShow(true)}} variant="outline-light">Calender</Button> :
+          <Link to="/requestM">
+            <Button style={{float: 'right', marginRight: 10}} variant="outline-light">Calender</Button>  
+          </Link>
+        }  
+        {!authed?
+            <Button style={{float: 'right', marginRight: 10}} onClick={() => {setModalShow(true)}} variant="outline-light">My Page</Button> :
+          <Link to="/MyPage">
+            <Button style={{float: 'right', marginRight: 10}} variant="outline-light">My Page</Button>  
+          </Link>
+        }  
+        {!authed?
+            <Button style={{float: 'right', marginRight: 10}} onClick={() => {setModalShow(true)}} variant="outline-light">Sign In</Button> :
+            <Button style={{float: 'right', marginRight: 10}} variant="outline-light">{user}</Button>  
         }        
       </NavHeader>
       {modalShow?<SignInModal closable show={modalShow} onHide={() => setModalShow(false)}/>:null}

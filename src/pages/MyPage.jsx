@@ -14,11 +14,11 @@ const MyPage = props => {
   const [location, setLocation] = useState('');
 
   const db = firebase.firestore();
-  const userDoc = db.collection('userID').doc('user2');
+  const userDoc = db.collection('userID').doc('user4');
 
   userDoc.get().then(function(doc){
       const myRegister = doc.data().MyRegister;
-      const requests = myRegister.request;
+      const requests = doc.data().Request;
       setRequestNum(requests.length);
       setRoomName(myRegister.roomName);
       setExplanation(myRegister.explanation);
