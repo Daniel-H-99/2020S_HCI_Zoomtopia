@@ -1,10 +1,28 @@
-import React from 'react';
+import React, {useRef, useState} from 'react';
 import Header from '../components/Header';
 import {Button, Card, CardDeck} from 'react-bootstrap';
 import Main from '../components/Main';
 import { Route, Link } from 'react-router-dom';
+import firebase from '../components/Firestore';
+const db = firebase.firestore();
+const findRoomsInDB = (callback) => {
+  const query = db.collection('userID').limit(5);
+  query.get().then(snapshot => {
+    const rooms = [];
+    snapshot.forEach(doc => {
+      rooms.push(doc.data.myRegister);
+    })
+    callback(rooms);
+  })  
+}
+
 const MainPage = props => {
   const {authed, user} = props;
+  const deckRef = useRef();
+  const findCallBack = (rooms) => {
+    const deck = deckRef.current;
+  }
+  
   return (
     <>
       <Header {...props} />

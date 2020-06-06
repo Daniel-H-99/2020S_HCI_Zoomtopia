@@ -4,7 +4,6 @@ import {Button, Modal ,Form} from 'react-bootstrap';
 import { Route, Link } from 'react-router-dom';
 import firebase from '../components/Firestore';
 const db = firebase.firestore();
-const testRef = db.collection('userID').doc('user1').collection('myRegister').doc('aACqSwwgn0eCS0ndrBAx');
 const findUserInDB = (email, password, callback) => {
   const query = db.collection('userID').where('Credential.email', '==', email).where('Credential.password', '==', password).limit(1);
   query.get().then(snapshot => {
