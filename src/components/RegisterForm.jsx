@@ -11,22 +11,41 @@ const Margin = styled.div`
   margin: 0 auto;
 `
 
-const userID = "user2";
+const userID = "user4";
 
 
 const writeData = (userID, RoomName, IntroVideo, Location, CostperDay, Term, RoomStructure, RoomSize, Explanation) => {
   return firebase.firestore().collection('userID').doc(userID)
       .update({
         MyRegister: {
-        RoomName: RoomName,
-        IntroVideo: IntroVideo,
-        Location: Location,
-        CostperDay: CostperDay,
-        Term: Term,
-        RoomStructure: RoomStructure,
-        RoomSize: RoomSize,
-        Explanation: Explanation
-        }
+          RoomName: RoomName,
+          IntroVideo: IntroVideo,
+          Location: Location,
+          CostperDay: CostperDay,
+          From: Term,
+          To: Term,
+          RoomStructure: RoomStructure,
+          RoomSize: RoomSize,
+          Explanation: Explanation,
+          Confirm: false
+        },
+        Request: 
+          [{
+            email: "dksow@kaist.ac.kr",
+            id: "dsasdsds351",
+            phone: "01023251244",
+            From: "2020-07-22",
+            To: "2020-08-02",
+            Confirm: false
+          },
+          {
+            email: "xodbs@kaist.ac.kr",
+            id: "ggang351",
+            phone: "01023551244",
+            From: "2020-08-03",
+            To: "2020-08-13",
+            Confirm: false
+          }]
       });
 };
 

@@ -63,8 +63,8 @@ function MyPageCard(props) {
                 </>
             </Card.Body>
             <Card.Body>
-                <Card.Link href="/ItemInfo">View detail</Card.Link>
-                <Card.Link href="/RequestM">
+                <Card.Link to="/ItemInfo">View detail</Card.Link>
+                <Card.Link to="/RequestM">
                   Check Request<Badge variant="light">{props.requestNum}</Badge>
                 </Card.Link>
             </Card.Body>
