@@ -1,13 +1,9 @@
 import React, { Component, useEffect, Suspense, useContext, useState} from 'react';
 import { Router, Route, Switch, withRouter, Redirect} from 'react-router-dom';
 import { createBrowserHistory } from 'history';
-//import firebase from 'firebase';
-//import 'firebase/firestore';
-
 
 import MainPage from './pages/MainPage';
 import RegisterRoomPage from './pages/RegisterRoomPage';
-
 import RequestManage from './pages/requestComp/RequestManage'
 import SampleReq from './pages/requestComp/SampleReq';
 import MyPage from './pages/MyPage';
@@ -18,17 +14,6 @@ import AddAuth from './components/AddAuth';
 import Header from './components/Header';
 const history = createBrowserHistory();
 
-// const firebaseConfig = {
-//   apiKey: "AIzaSyArkTUMpYK6h2rhMrHRzkH_-ftlKE2ygA8",
-//   authDomain: "fir-hci-zoomtopia.firebaseapp.com",
-//   databaseURL: "https://fir-hci-zoomtopia.firebaseio.com",
-//   projectId: "fir-hci-zoomtopia",
-//   storageBucket: "fir-hci-zoomtopia.appspot.com",
-//   messagingSenderId: "821035151780",
-//   appId: "1:821035151780:web:bef50d7fb2c3665b309131"
-// };
-// firebase.initializeApp(firebaseConfig)
-// const db = firebase.firestore();
 
 const ScrollToTop = withRouter(({ children, location: { pathname } }) => {
   useEffect(() => {

@@ -1,17 +1,26 @@
+//importing react components and css
 import React from 'react';
+import Form from 'react-bootstrap/Form'
 
 import SampleReq from './SampleReq.jsx';
 import PageTitle from './pagetitle.jsx';
-import PageData from './requestdata.jsx';
+import ConfirmData from './requestdata.jsx';
+import MyCheckbox from './MyCheckbox.jsx';
 
 import Main from '../../components/Main';
 import Header from '../../components/Header';
 import { render } from '@testing-library/react';
 import { addDays } from 'date-fns';
 
-let gchecked = false;
-let gchecked2 = false;
+// testing variables
+const reqData = [
+    {username: 'kim', From:'2020-06-09', To:'2020-06-14'},
+    {username: 'hwang', From:'2020-06-15', To:'2020-06-30'},
+    {username: 'eom', From:'2020-07-01', To:'2020-07-20'}
+  ];
 
+
+//components
 class Calview extends React.Component {
   state={
     textAlign: "center"
@@ -21,52 +30,70 @@ class Calview extends React.Component {
       //position: 'absolute',
       //left: '50%',
       //transform: "translate(-50%, 10%)",
-      float: 'left',
-      margin: '10px auto',
-      marginLeft: '80px',
+      width: '670px',
+      margin: '0 auto',
       paddingLeft: "10px",
       paddingRight: "10px",
       paddingTop: "10px",
       minheight: "100px",
-      border : '0px solid lightblue',
-      borderRadius: '1%'
+      //borderBottom : '0px solid lightblue',
+      //borderRadius: '1%'
       //backgroundColor: '#f6f6f6'
       //overflow: "auto"
     };
-    const selectionRange = {
-      startDate: new Date(),
-      endDate: addDays(new Date(), 20),
-      //color: 'lightgreen',
-      key: 'selection',
+
+    let nowdata = this.props.nowShow;
+    let selectionRanges = []
+
+    for (let idx = 0; idx<nowdata.length; idx++){
+      for(let user in reqData){
+        if(nowdata[idx].name==reqData[user].username){
+          let tempdata = {
+            startDate: new Date(reqData[user].From),
+            endDate: new Date(reqData[user].To),
+            //color: 'lightgreen',
+            key: reqData[user].username,
+          }
+          selectionRanges = selectionRanges.concat(tempdata);
+        }
+      }
+    }
+    if(selectionRanges.length==0){
+      selectionRanges= selectionRanges.concat({
+        startDate: new Date(),
+        endDate: new Date(),
+        color: 'lightgreen',
+        key: 'default today',
+      })
     }
 
-    const selectionRange2 = {
-      startDate: addDays(new Date(), 23),
-      endDate: addDays(new Date(), 37),
-      //color: 'lightgreen',
-      key: 'selection2',
-      showDataDisplay: false
-    }
-
-    let selectionRanges = [];
-    selectionRanges = selectionRanges.concat(selectionRange);
     let month=2;
 
-    if (gchecked==false){
-      selectionRanges = [selectionRange];
-    } else {
-      selectionRanges = selectionRanges.concat(selectionRange2);
-    }
-
     return (
-      <section>
       <div style={mystyle}>
         <SampleReq
           month={month}
           ranges = {selectionRanges}
-        />
-      </div>
-      </section>
+        /></div>);}
+}
+
+class FormMing extends React.Component{
+  constructor(props){
+    super(props);
+    this.handleChildbox = this.handleChildbox.bind(this);
+  }
+  handleChildbox(name, checked){
+    this.props.handleCalshow(name,checked);
+  }
+
+  render(){
+    return (
+      reqData.map((users, i) => (
+        <MyCheckbox
+          key = {i} className = "hong-checkbox"
+          request = {users.username}
+          handleChildbox = {this.handleChildbox}
+        />))
     );
   }
 }
@@ -75,43 +102,47 @@ class Calview extends React.Component {
 class RequestManage extends React.Component{
   constructor(props){
     super(props);
-    this.state = {
-      title: 'hello',
-      checked: false,
-      checked2: false
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-    //this.handleChange = this.handleChange2.bind(this);
+    this.state = {ranges: []};
+    this.handleCalshow = this.handleCalshow.bind(this);
   }
 
-  handleChange = (e) => {
-    const { target: { checked } } = e;
-    this.setState({ checked });
-    gchecked = this.state.checked;
-  };
+  handleCalshow(name, checked){
+    const {ranges} = this.state;
+    if(checked){
+      this.setState({ranges: ranges.concat({name: name})})
+    }
+    else{
+      this.setState({ranges: ranges.filter(info=>info.name !==name)})
+    }
+  }
 
   render() {
     return (
       <>
       <Header/>
       <Main>
-        <section>
-          <PageTitle id = "mytitle1"/>
-        </section>
         <div>
-         <Calview id="cal1"/>
+          <PageTitle id = "mytitle1"/>
         </div>
-        <input
-            type="checkbox"
-            checked={this.state.checked}
-            onChange={this.handleChange}
-        />
+        <section style={{display:'block', width: '700px', margin:'0 auto' }}>
+          <div style={{width: '670px', height: '480px', borderBottom : '3px solid lightblue', margin:'2 auto'}}>
+          <Calview id="cal1" nowShow = {this.state.ranges}/>
+          </div>
+          <div style = {{ width: '600px', margin:'0 auto'}}>
+            <p>Requests: {reqData.length} </p>
+            <FormMing handleName = {this.handleName}
+              handleCalshow= {this.handleCalshow} />
+            <div className="confirmbutton">
+              <ConfirmData/>
+            </div>
+          </div>
+        </section>
       </Main>
       </>
     )
   }
 }
+
 export default RequestManage;
 
 //   <Calview id="cal1"/>

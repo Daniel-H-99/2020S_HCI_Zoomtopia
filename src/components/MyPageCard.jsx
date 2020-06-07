@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { Link } from 'react-router-dom';
 import {Card, Badge, ListGroup, ListGroupItem, Button, Modal, FormControl, Form} from 'react-bootstrap';
 
 function MyPageCard(props) {
@@ -10,7 +11,7 @@ function MyPageCard(props) {
         alert("Email has been sent successfully!");
     }
     const handleShow = () => {
-        const defaultContent = "Location: " + props.location + "\nCost: " + props.cost + "\nTerm: " + props.term;
+        const defaultContent = "Location: " + props.Location + "\nCost: " + props.CostperDay + "\nTerm: " + props.From + " ~ " + props.To ;
         setDefaultText(defaultContent);
         setShow(true);
     }
@@ -19,15 +20,15 @@ function MyPageCard(props) {
         <Card style={{ width: '18rem' }}>
             <Card.Img variant="top" src={require('../images/Sample.png')} />
             <Card.Body>
-                <Card.Title>{props.roomName}</Card.Title>
+                <Card.Title>{props.RoomName}</Card.Title>
                 <Card.Text>
-                {props.explanation}
+                {props.Explanation}
                 </Card.Text>
             </Card.Body>
             <ListGroup className="list-group-flush">
-                <ListGroupItem>{props.term}</ListGroupItem>
-                <ListGroupItem>{props.cost}</ListGroupItem>
-                <ListGroupItem>Contract Status</ListGroupItem>
+                <ListGroupItem>{props.From} ~ {props.To}</ListGroupItem>
+                <ListGroupItem>{props.CostperDay} Won / Day</ListGroupItem>
+                <ListGroupItem>{props.Confirm ? <b>Contract Complete!</b> : <b>Contract in Progress</b>}</ListGroupItem>
             </ListGroup>
             <Card.Body>
                 <>
@@ -63,10 +64,10 @@ function MyPageCard(props) {
                 </>
             </Card.Body>
             <Card.Body>
-                <Card.Link to="/ItemInfo">View detail</Card.Link>
-                <Card.Link to="/RequestM">
-                  Check Request<Badge variant="light">{props.requestNum}</Badge>
-                </Card.Link>
+                <Link to={{pathname: '/ItemInfo',state: {p : "passed"}}} style={{ marginRight: 10 }}>
+                    View detail
+                </Link>
+                {props.Confirm ? <Link to='/RequestM'>Show Contractor Info</Link> :<Link to='/RequestM'> Check Request<Badge variant="light">{props.requestNum}</Badge></Link>}
             </Card.Body>
             </Card>
 
