@@ -8,8 +8,6 @@ const ItemInfo = props => {
     <>
       <Header/>
       <Main>
-        <div>Current page show no data</div>
-        <div>It will be replaced to actual data placeholder</div>
         <ItemInfoForm userID="user4"/>
       </Main>
     </>
