@@ -2,19 +2,25 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const MainStyle = styled.div`
+  display: table-cell;
   padding-top: 4rem;
-  padding-left: 0.5rem;
-  position: absolute;
+  padding-left: 300px;
+  padding-right: 300px;
   z-index: 1;
   height: 100%;
   box-sizing: border-box;
-  width: 50%;
+  vertical-align: middle; 
+  margin: 0 auto;
 `;
 
 const Main = props => {
   const { children } = props;
 
-  return <MainStyle style={{width: 700}}>{children}</MainStyle>;
+  return (
+    <div style={{display: "table", width: "100%"}}>
+      <MainStyle style={{width: "100%"}}>{children}</MainStyle>;
+    </div>
+  )
 };
 
 export default Main;

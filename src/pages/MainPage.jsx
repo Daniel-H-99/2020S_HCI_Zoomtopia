@@ -57,7 +57,8 @@ const MainPage = props => {
   findRoomsInDB(findCallBack);
   return (
     <>
-        <h3>Hello! This is Roomtopia. Offer or Discover your Short-Term Rental House Quickly.</h3><br/><br/><br/>
+        <h3>What kind of town, what kind of room do you want to live in?</h3>
+        <h3>Offer or Discover your Short-Term Rental House Quickly</h3><hr/><br/><br/><br/>
         <div style={{width: '100%', margin: 'auto', paddingBottom: 10}}>
         <b style={{fontSize: '25px'}}>CURRENT OFFERS</b> 
         <Link to={{

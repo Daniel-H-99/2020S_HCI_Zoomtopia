@@ -33,11 +33,7 @@ const MyPage = props => {
 
   return (
     <>
-      <Header/>
-      <Main>
-        <div>This is MyPage</div>
-        <MyPageCard RoomName={roomName} Explanation={explanation} From={from} To={to} CostperDay={cost} requestNum={requestNum} Location={location} Confirm={confirm}/>
-      </Main>
+      <MyPageCard RoomName={roomName} Explanation={explanation} From={from} To={to} CostperDay={cost} requestNum={requestNum} Location={location} Confirm={confirm}/>
     </>
   );
 };

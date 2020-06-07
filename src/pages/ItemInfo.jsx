@@ -6,10 +6,7 @@ import ItemInfoForm from '../components/ItemInfoForm';
 const ItemInfo = props => {
   return (
     <>
-      <Header/>
-      <Main>
         <ItemInfoForm userID="user4"/>
-      </Main>
     </>
   );
 };

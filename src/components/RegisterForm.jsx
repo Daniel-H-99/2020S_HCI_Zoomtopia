@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect, RouteComponentProps } from 'react-router-dom';
+import createHistory from 'history/createBrowserHistory'
+import { createHashHistory } from 'history'
 import { Button, Form } from 'react-bootstrap';
 import styled from 'styled-components';
 import 'react-dates/initialize';
@@ -15,7 +17,8 @@ const Margin = styled.div`
   margin: 0 auto;
 `
 
-const userID = "user4";
+const userID = "user2";
+const history = createHashHistory();
 
 const RandomRequset = (startDate, endDate) => {
   const Start = startDate.format("YYYYMMDD");
@@ -173,94 +176,96 @@ class RegisterForm extends Component {
       this.parsingDate();
       
       this.setState({[this.state.checking]: true})
+      console.log(this.state.checking)
       writeData(userID, this.state.RoomName, this.state.IntroVideo, this.state.Location, this.state.CostperDay, this.state.startDate, this.state.endDate, this.state.RoomStructure, this.state.RoomSize, this.state.Options, this.state.Explanation, firstRequestEnd, secondRequestStart);
       alert('Success to register your room!');
       console.log("9");
-      
+      history.push("/MainPage");
     }
     
   }
   render() {
     return (
+      this.state.checking?
+        <Redirect to="/MainPage"/>
+      :
       <form onSubmit={this.handleSubmit}>
-        <Margin>
-          <Form>
-            <Form.Group controlId="RoomName">
-              <Form.Label>Room Name</Form.Label>
-              <Form.Control type="RoomName" name="RoomName" placeholder="Room Name" onChange={this.handleChange} />
-            </Form.Group>
+        <Form>
+          <Form.Group controlId="RoomName">
+            <Form.Label>Room Name</Form.Label>
+            <Form.Control type="RoomName" name="RoomName" placeholder="Room Name" onChange={this.handleChange} />
+          </Form.Group>
 
-            <Form.Group controlId="IntroVideo">
-              <Form.Label>Intro Video</Form.Label>
-              <Form.Control type="IntroVideo" name="IntroVideo" placeholder="Please upload your introduction video (Youtube URL)" onChange={this.handleChange} />
-            </Form.Group>
+          <Form.Group controlId="IntroVideo">
+            <Form.Label>Intro Video</Form.Label>
+            <Form.Control type="IntroVideo" name="IntroVideo" placeholder="Please upload your introduction video (Youtube URL)" onChange={this.handleChange} />
+          </Form.Group>
 
-            <Form.Group controlId="Location">
-              <Form.Label>Location</Form.Label>
-              <Form.Control type="Location" name="Location" placeholder="Location" onChange={this.handleChange}/>
-            </Form.Group>
+          <Form.Group controlId="Location">
+            <Form.Label>Location</Form.Label>
+            <Form.Control type="Location" name="Location" placeholder="Location" onChange={this.handleChange}/>
+          </Form.Group>
 
-            <Form.Group controlId="CostperDay">
-              <Form.Label>Cost per Day</Form.Label>
-              <Form.Control type="CostperDay" name="CostperDay" placeholder="Enter the Only Number Cost per Day (Won)" onChange={this.handleChange}/>
-            </Form.Group>
+          <Form.Group controlId="CostperDay">
+            <Form.Label>Cost per Day</Form.Label>
+            <Form.Control type="CostperDay" name="CostperDay" placeholder="Enter the Only Number Cost per Day (Won)" onChange={this.handleChange}/>
+          </Form.Group>
 
-            <Form.Group controlId="Term">
-              <div>
-                <Form.Label>Term</Form.Label>
-              </div>
-              <DateRangePicker 
-                startDate={this.state.startDate}
-                startDateId="startDate"
-                endDate={this.state.endDate}
-                endDateId="endDate"
-                onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })} 
-                focusedInput={this.state.focusedInput}
-                onFocusChange={focusedInput => this.setState({ focusedInput })}
-              />
-            </Form.Group>
+          <Form.Group controlId="Term">
+            <div>
+              <Form.Label>Term</Form.Label>
+            </div>
+            <DateRangePicker 
+              startDate={this.state.startDate}
+              startDateId="startDate"
+              endDate={this.state.endDate}
+              endDateId="endDate"
+              onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })} 
+              focusedInput={this.state.focusedInput}
+              onFocusChange={focusedInput => this.setState({ focusedInput })}
+            />
+          </Form.Group>
 
-            <Form.Group controlId="RoomStructure">
-              <Form.Label>Room Structure</Form.Label>
-              <Form.Control as="select" name="RoomStructure" defaultValue={this.state.RoomStructure} onChange={this.handleChange}>
-                <option>One Room</option>
-                <option>Two Room</option>
-                <option>Three Room</option>
-              </Form.Control>
-            </Form.Group>
+          <Form.Group controlId="RoomStructure">
+            <Form.Label>Room Structure</Form.Label>
+            <Form.Control as="select" name="RoomStructure" defaultValue={this.state.RoomStructure} onChange={this.handleChange}>
+              <option>One Room</option>
+              <option>Two Room</option>
+              <option>Three Room</option>
+            </Form.Control>
+          </Form.Group>
 
-            <Form.Group controlId="RoomSize">
-              <Form.Label>Room Size</Form.Label>
-              <Form.Control type="RoomSize" name="RoomSize" placeholder="Enter the Only Number Room Size (m^2)" onChange={this.handleChange}/>
-            </Form.Group>
+          <Form.Group controlId="RoomSize">
+            <Form.Label>Room Size</Form.Label>
+            <Form.Control type="RoomSize" name="RoomSize" placeholder="Enter the Only Number Room Size (m^2)" onChange={this.handleChange}/>
+          </Form.Group>
 
-            <Form.Group controlId="Options">
-              <Form.Label>Options</Form.Label>
-              {['checkbox'].map((type) => (
-              <div key={`inline-${type}`} className="mb-3">
-                <Form.Check inline label="Aircon" type={type} id="Aircon" onChange={this.handleOption}/>
-                <Form.Check inline label="Refriger" type={type} id="Refriger" onChange={this.handleOption}/>
-                <Form.Check inline label="Washer" type={type} id="Washer" onChange={this.handleOption}/>
-                <Form.Check inline label="Gas range" type={type} id="Gasrange" onChange={this.handleOption}/>
-                <Form.Check inline label="Bed" type={type} id="Bed" onChange={this.handleOption}/>
-                <Form.Check inline label="Desk" type={type} id="Desk" onChange={this.handleOption}/>
-                <Form.Check inline label="Wardrobe" type={type} id="Wardrobe" onChange={this.handleOption}/>
-                <Form.Check inline label="Sink" type={type} id="Sink" onChange={this.handleOption}/>
-                <Form.Check inline label="Stove" type={type} id="Stove" onChange={this.handleOption}/>
-              </div>
-              ))}
-            </Form.Group>
+          <Form.Group controlId="Options">
+            <Form.Label>Options</Form.Label>
+            {['checkbox'].map((type) => (
+            <div key={`inline-${type}`} className="mb-3">
+              <Form.Check inline label="Aircon" type={type} id="Aircon" onChange={this.handleOption}/>
+              <Form.Check inline label="Refriger" type={type} id="Refriger" onChange={this.handleOption}/>
+              <Form.Check inline label="Washer" type={type} id="Washer" onChange={this.handleOption}/>
+              <Form.Check inline label="Gas range" type={type} id="Gasrange" onChange={this.handleOption}/>
+              <Form.Check inline label="Bed" type={type} id="Bed" onChange={this.handleOption}/>
+              <Form.Check inline label="Desk" type={type} id="Desk" onChange={this.handleOption}/>
+              <Form.Check inline label="Wardrobe" type={type} id="Wardrobe" onChange={this.handleOption}/>
+              <Form.Check inline label="Sink" type={type} id="Sink" onChange={this.handleOption}/>
+              <Form.Check inline label="Stove" type={type} id="Stove" onChange={this.handleOption}/>
+            </div>
+            ))}
+          </Form.Group>
 
-            <Form.Group controlId="Explanation">
-              <Form.Label>Explanation</Form.Label>
-              <Form.Control type="Explanation" name="Explanation" placeholder="Explanation" as="textarea" rows="5" onChange={this.handleChange}/>
-            </Form.Group>
-            
-            <Button variant="primary" type="submit" value="Submit">
-              Register
-            </Button>
-          </Form>
-        </Margin>
+          <Form.Group controlId="Explanation">
+            <Form.Label>Explanation</Form.Label>
+            <Form.Control type="Explanation" name="Explanation" placeholder="Explanation" as="textarea" rows="5" onChange={this.handleChange}/>
+          </Form.Group>
+          
+          <Button variant="primary" type="submit" value="Submit">
+            Register
+          </Button>
+        </Form>
       </form>
       
     );

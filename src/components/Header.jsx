@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import {Button, Modal ,Form, Dropdown, ButtonGroup} from 'react-bootstrap';
-import { Route, Link } from 'react-router-dom';
+import {Button, Dropdown, ButtonGroup} from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import SignInModal from './SignInModal';
 
 // const StyledHeader = styled.div`
@@ -29,6 +29,7 @@ const FontsHeader = styled.span`
   color: white;
   text-transform: uppercase;
   letter-spacing: 0.1rem;
+  font-size: 18pt;
 `;
 
 const Icon = styled.img`

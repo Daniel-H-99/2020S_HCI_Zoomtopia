@@ -12,6 +12,23 @@ import Header from '../../components/Header';
 import { render } from '@testing-library/react';
 import { addDays } from 'date-fns';
 
+import firebase from '../../components/Firestore';
+
+
+const db = firebase.firestore();
+const findRoomsInDB = (callback) => {
+  const query = db.collection('userID').limit(10);
+  query.get().then(snapshot => {
+    const rooms = [];
+    snapshot.forEach(doc => {
+      if (doc.data().MyRegister != null){
+        rooms.push(doc.data().MyRegister);       
+      }
+    })
+    callback(rooms);
+  });
+};
+
 // testing variables
 const reqData = [
     {username: 'kim', From:'2020-06-09', To:'2020-06-14'},
@@ -119,8 +136,6 @@ class RequestManage extends React.Component{
   render() {
     return (
       <>
-      <Header/>
-      <Main>
         <div>
           <PageTitle id = "mytitle1"/>
         </div>
@@ -137,7 +152,6 @@ class RequestManage extends React.Component{
             </div>
           </div>
         </section>
-      </Main>
       </>
     )
   }
