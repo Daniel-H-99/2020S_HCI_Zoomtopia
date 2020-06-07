@@ -4,17 +4,10 @@ import './requestdata.scss';
 import { render } from '@testing-library/react';
 
 
-class reqData extends React.Component {
-
-
-}
-
-
 class ConfirmData extends React.Component {
   constructor(props) {
     super(props);
     this.state = {isToggleOn: true};
-
     this.handleClick = this.handleClick.bind(this);
   }
   handleClick() {
@@ -119,6 +112,6 @@ class MyApp extends React.Component {
   }
 }
 */
-export default PageData;
+export default ConfirmData;
 
 //   <Calview id="cal1"/>
