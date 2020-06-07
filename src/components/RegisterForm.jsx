@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 import styled from 'styled-components';
+import 'react-dates/initialize';
+import 'react-dates/lib/css/_datepicker.css';
+import { DateRangePicker } from "react-dates";
 import firebase from '../components/Firestore';
 
 
@@ -13,8 +17,28 @@ const Margin = styled.div`
 
 const userID = "user4";
 
+const RandomRequset = (startDate, endDate) => {
+  const Start = startDate.format("YYYYMMDD");
+  const Syear = Start.slice(0,4);
+  const Smonth = Start.slice(4,6);
+  const Sday = Start.slice(6);
+  const newStart = Syear + '/' + Smonth + '/' + Sday;
 
-const writeData = (userID, RoomName, IntroVideo, Location, CostperDay, Term, RoomStructure, RoomSize, Explanation) => {
+  const EndDay = endDate.subtract(1, 'days').startOf('day')
+  const End = EndDay.format("YYYYMMDD");
+  const Eyear = End.slice(0,4);
+  const Emonth = End.slice(4,6);
+  const Eday = End.slice(6);
+  const newEnd = Eyear + '/' + Emonth + '/' + Eday;
+
+  const startdate = new Date(newStart);
+  const enddate = new Date(newEnd);
+
+  return new Date(startdate.getTime() + Math.random() * (enddate.getTime() - startdate.getTime()));
+
+}
+
+const writeData = (userID, RoomName, IntroVideo, Location, CostperDay, startDate, endDate, RoomStructure, RoomSize, Options, Explanation, firstRequestEnd, secondRequestStart) => {
   return firebase.firestore().collection('userID').doc(userID)
       .update({
         MyRegister: {
@@ -22,28 +46,29 @@ const writeData = (userID, RoomName, IntroVideo, Location, CostperDay, Term, Roo
           IntroVideo: IntroVideo,
           Location: Location,
           CostperDay: CostperDay,
-          From: Term,
-          To: Term,
+          From: startDate,
+          To: endDate,
           RoomStructure: RoomStructure,
           RoomSize: RoomSize,
+          Options: Options,
           Explanation: Explanation,
           Confirm: false
         },
         Request: 
           [{
             email: "dksow@kaist.ac.kr",
-            id: "dsasdsds351",
+            id: "wlsxodyd",
             phone: "01023251244",
-            From: "2020-07-22",
-            To: "2020-08-02",
+            From: startDate,
+            To: firstRequestEnd,
             Confirm: false
           },
           {
             email: "xodbs@kaist.ac.kr",
-            id: "ggang351",
+            id: "1day10ggang",
             phone: "01023551244",
-            From: "2020-08-03",
-            To: "2020-08-13",
+            From: secondRequestStart,
+            To: endDate,
             Confirm: false
           }]
       });
@@ -52,15 +77,51 @@ const writeData = (userID, RoomName, IntroVideo, Location, CostperDay, Term, Roo
 
 class RegisterForm extends Component {
   state = {
+    checking: false,
     RoomName: '',
     IntroVideo: '',
     Location: '',
     CostperDay: '',
-    Term: '',
+    startDate: null,
+    endDate: null,
     RoomStructure: 'One Room',
     RoomSize: '',
-    Options: [],
-    Explanation: '',
+    Options: {
+      Aircon: false,
+      Refriger: false,
+      Washer: false,
+      Gasrange: false,
+      Bed: false,
+      Desk: false,
+      Wardrobe: false,
+      Sink: false,
+      Stove: false
+    },
+    Explanation: ''
+  }
+  parsingDate = (e) => {
+    this.state.startDate = this.state.startDate.format("YYYY-MM-DD");
+    this.state.endDate = this.state.endDate.format("YYYY-MM-DD");
+  }
+  handleOption = (e) => {
+    const id = e.target.id;
+    console.log(id);
+    var options = this.state.Options[id];
+
+    if (e.target.checked) {
+      options = true;
+    } 
+    else {
+      options = false;
+    }
+
+    this.setState(prevState => ({
+      Options: {
+        ...prevState.Options,
+        [id]: options}
+      }
+    ));
+    console.log("options", this.state.Options);
   }
   handleChange = (e) => {
     this.setState({[e.target.name]: e.target.value});
@@ -68,6 +129,7 @@ class RegisterForm extends Component {
   handleSubmit = (event) => {
     const db = firebase.firestore();
     event.preventDefault();
+    
     if (this.state.RoomName === ''){
       alert('Please Enter Room Name');
       console.log("1");
@@ -84,7 +146,11 @@ class RegisterForm extends Component {
       alert('Please Enter Cost per Day');
       console.log("4");
     }
-    else if (this.state.Term === ''){
+    else if (this.state.From === '') {
+      alert('Please Enter Term');
+      console.log("5");
+    }
+    else if (this.state.To === '') {
       alert('Please Enter Term');
       console.log("5");
     }
@@ -101,10 +167,16 @@ class RegisterForm extends Component {
       console.log("8");
     }
     else {
+      const request = RandomRequset(this.state.startDate, this.state.endDate);
+      const firstRequestEnd = request.toISOString().slice(0,10);
+      const secondRequestStart = new Date(request.setDate(request.getDate() + 1)).toISOString().slice(0,10);
+      this.parsingDate();
+      
+      this.setState({[this.state.checking]: true})
+      writeData(userID, this.state.RoomName, this.state.IntroVideo, this.state.Location, this.state.CostperDay, this.state.startDate, this.state.endDate, this.state.RoomStructure, this.state.RoomSize, this.state.Options, this.state.Explanation, firstRequestEnd, secondRequestStart);
       alert('Success to register your room!');
-      writeData(userID, this.state.RoomName, this.state.IntroVideo, this.state.Location, this.state.CostperDay, this.state.Term, this.state.RoomStructure, this.state.RoomSize, this.state.Explanation);
-      event.preventDefault();
       console.log("9");
+      
     }
     
   }
@@ -116,11 +188,6 @@ class RegisterForm extends Component {
             <Form.Group controlId="RoomName">
               <Form.Label>Room Name</Form.Label>
               <Form.Control type="RoomName" name="RoomName" placeholder="Room Name" onChange={this.handleChange} />
-            </Form.Group>
-            
-
-            <Form.Group controlId="RoomImage">
-              <Form.File id="RoomImage" name="File" label="Room image file input" />
             </Form.Group>
 
             <Form.Group controlId="IntroVideo">
@@ -139,8 +206,18 @@ class RegisterForm extends Component {
             </Form.Group>
 
             <Form.Group controlId="Term">
-              <Form.Label>Term</Form.Label>
-              <Form.Control type="Term" name="Term" placeholder="Term" onChange={this.handleChange}/>
+              <div>
+                <Form.Label>Term</Form.Label>
+              </div>
+              <DateRangePicker 
+                startDate={this.state.startDate}
+                startDateId="startDate"
+                endDate={this.state.endDate}
+                endDateId="endDate"
+                onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })} 
+                focusedInput={this.state.focusedInput}
+                onFocusChange={focusedInput => this.setState({ focusedInput })}
+              />
             </Form.Group>
 
             <Form.Group controlId="RoomStructure">
@@ -150,7 +227,6 @@ class RegisterForm extends Component {
                 <option>Two Room</option>
                 <option>Three Room</option>
               </Form.Control>
-              <div>{this.state.RoomStructure}</div>
             </Form.Group>
 
             <Form.Group controlId="RoomSize">
@@ -162,15 +238,15 @@ class RegisterForm extends Component {
               <Form.Label>Options</Form.Label>
               {['checkbox'].map((type) => (
               <div key={`inline-${type}`} className="mb-3">
-                <Form.Check inline label="Aircon" type={type} id={`inline-${type}-1`} />
-                <Form.Check inline label="Refriger" type={type} id={`inline-${type}-2`} />
-                <Form.Check inline label="Washer" type={type} id={`inline-${type}-3`} />
-                <Form.Check inline label="Gas range" type={type} id={`inline-${type}-4`} />
-                <Form.Check inline label="Bed" type={type} id={`inline-${type}-5`} />
-                <Form.Check inline label="Desk" type={type} id={`inline-${type}-6`} />
-                <Form.Check inline label="Wardrobe" type={type} id={`inline-${type}-7`} />
-                <Form.Check inline label="Sink" type={type} id={`inline-${type}-8`} />
-                <Form.Check inline label="Stove" type={type} id={`inline-${type}-9`} />
+                <Form.Check inline label="Aircon" type={type} id="Aircon" onChange={this.handleOption}/>
+                <Form.Check inline label="Refriger" type={type} id="Refriger" onChange={this.handleOption}/>
+                <Form.Check inline label="Washer" type={type} id="Washer" onChange={this.handleOption}/>
+                <Form.Check inline label="Gas range" type={type} id="Gasrange" onChange={this.handleOption}/>
+                <Form.Check inline label="Bed" type={type} id="Bed" onChange={this.handleOption}/>
+                <Form.Check inline label="Desk" type={type} id="Desk" onChange={this.handleOption}/>
+                <Form.Check inline label="Wardrobe" type={type} id="Wardrobe" onChange={this.handleOption}/>
+                <Form.Check inline label="Sink" type={type} id="Sink" onChange={this.handleOption}/>
+                <Form.Check inline label="Stove" type={type} id="Stove" onChange={this.handleOption}/>
               </div>
               ))}
             </Form.Group>
@@ -179,12 +255,11 @@ class RegisterForm extends Component {
               <Form.Label>Explanation</Form.Label>
               <Form.Control type="Explanation" name="Explanation" placeholder="Explanation" as="textarea" rows="5" onChange={this.handleChange}/>
             </Form.Group>
-
+            
             <Button variant="primary" type="submit" value="Submit">
               Register
             </Button>
           </Form>
-          
         </Margin>
       </form>
       
