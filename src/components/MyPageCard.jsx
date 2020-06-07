@@ -67,7 +67,7 @@ function MyPageCard(props) {
                 <Link to={{pathname: '/ItemInfo',state: {p : "passed"}}} style={{ marginRight: 10 }}>
                     View detail
                 </Link>
-                {props.Confirm ? <Link to={{pathname: '/RequestM',state: {p : "passed"}}}>Show Contractor Info</Link> :<Link to={{pathname: '/RequestM',state: {p : "passed"}}}> Check Request<Badge variant="light">{props.requestNum}</Badge></Link>}
+                {props.Confirm ? <Link to='/RequestM'>Show Contractor Info</Link> :<Link to='/RequestM'> Check Request<Badge variant="light">{props.requestNum}</Badge></Link>}
             </Card.Body>
             </Card>
 
