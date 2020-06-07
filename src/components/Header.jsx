@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import {Button, Modal ,Form} from 'react-bootstrap';
+import {Button, Modal ,Form, Dropdown, ButtonGroup} from 'react-bootstrap';
 import { Route, Link } from 'react-router-dom';
 import SignInModal from './SignInModal';
 
@@ -79,8 +79,8 @@ const SideList = () => {
 };
 
 const Header = props => {
-  const { children, authed, user } = props;
-  console.log(authed, user);
+  const { children, authed, user, setUser, setAuthed} = props;
+  //console.log(authed, user);
   const [toggle, setToggle] = useState(false);
 
   const onIncrease = e => {
@@ -98,26 +98,30 @@ const Header = props => {
             <FontsHeader>Roomtopia</FontsHeader>
           </span>
         </Link>
-        <ButtonStyle type="button" onClick={onIncrease}>
-          <ImageButton src={require('../icons/menu.png')} />
-        </ButtonStyle>
-        {toggle && <SideList />}
+        {!authed?
+            <Button style={{float: 'right', marginRight: 10}} onClick={() => {setModalShow(true)}} variant="outline-light">Sign In</Button> :
+            <Dropdown as={ButtonGroup} style={{float: 'right', marginRight: 10}}>
+              <Button style={{float: 'right', marginRight: 0}} variant="outline-light">{user}</Button>    
+              <Dropdown.Toggle split variant="outline-light" id="dropdown-basic"></Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item onClick={() => {setUser(null);setAuthed(false)}}>Sign Out</Dropdown.Item>  
+              </Dropdown.Menu>
+            </Dropdown>
+        }
+
         {!authed?
             <Button style={{float: 'right', marginRight: 10}} onClick={() => {setModalShow(true)}} variant="outline-light">Calender</Button> :
           <Link to="/requestM">
             <Button style={{float: 'right', marginRight: 10}} variant="outline-light">Calender</Button>  
           </Link>
-        }  
+        }
         {!authed?
             <Button style={{float: 'right', marginRight: 10}} onClick={() => {setModalShow(true)}} variant="outline-light">My Page</Button> :
           <Link to="/MyPage">
             <Button style={{float: 'right', marginRight: 10}} variant="outline-light">My Page</Button>  
           </Link>
         }  
-        {!authed?
-            <Button style={{float: 'right', marginRight: 10}} onClick={() => {setModalShow(true)}} variant="outline-light">Sign In</Button> :
-            <Button style={{float: 'right', marginRight: 10}} variant="outline-light">{user}</Button>  
-        }        
+        
       </NavHeader>
       {modalShow?<SignInModal closable show={modalShow} onHide={() => setModalShow(false)}/>:null}
       

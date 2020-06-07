@@ -37,8 +37,8 @@ const SignInModal = (props) => {
     return <Redirect to={{
             pathname: '/Auth',
             state: {
-              email: emailRef.current.value,
-              pw: pwRef.current.value
+              email: email,
+              pw: pw
             }
           }}/>;
   }
@@ -48,6 +48,7 @@ const SignInModal = (props) => {
       {...props}
       size="sm"
       aria-labelledby="contained-modal-title-vcenter"
+      style={{backgroundColor: 'rgba( 255, 255, 255, 0 )'}}
       centered
     >
       <Modal.Header {...headerprop}>

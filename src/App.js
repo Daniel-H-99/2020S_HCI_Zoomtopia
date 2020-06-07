@@ -15,6 +15,7 @@ import ItemInfo from './pages/ItemInfo';
 import SignInModal from './components/SignInModal';
 import Auth from './components/Auth';
 import AddAuth from './components/AddAuth';
+import Header from './components/Header';
 const history = createBrowserHistory();
 
 // const firebaseConfig = {
@@ -44,8 +45,10 @@ function App(props) {
   const AuthGate = (props) => authed? props.children : <Redirect to={{
     pathname:"/SignInModal"}}/> 
   return (
+    <>
     <Router history={history}>
       <ScrollToTop>
+        <Header user={user} authed={authed} setUser={setUser} setAuthed={setAuthed}/>
         <Suspense fallback="loading">
           <Switch>
             <Route exact path="/" render={props => <MainPage {...props} user={user} authed={authed}/>}/>
@@ -63,6 +66,7 @@ function App(props) {
         </Suspense>
       </ScrollToTop>
     </Router>
+    </>
   );
 }
 

@@ -1,7 +1,5 @@
 import React, {useRef, useState} from 'react';
-import Header from '../components/Header';
 import {Button, Card, CardDeck, ListGroup, ListGroupItem} from 'react-bootstrap';
-import Main from '../components/Main';
 import { Route, Link } from 'react-router-dom';
 import firebase from '../components/Firestore';
 const db = firebase.firestore();
@@ -34,10 +32,10 @@ const MainPage = props => {
     setCards (
       <>
         {rooms.map(room => {
-          const photoURL = room.IntroVideo?queryParser(room.IntroVideo).v : '../images/Sample.png';
+          const photoURL = room.IntroVideo?'https://img.youtube.com/vi/'+queryParser(room.IntroVideo).v+'/0.jpg' : 'https://img.youtube.com/vi/f2V-yOVKDVU/0.jpg';
           return (
           <Card style={{ width: '18rem' }}>
-          <Card.Img variant="top" src={require('../images/Sample.png')} />
+          <Card.Img variant="top" src={photoURL} />
           <Card.Body>
             <Card.Title>{room.RoomName}</Card.Title>
             <Card.Text>
@@ -59,8 +57,6 @@ const MainPage = props => {
   findRoomsInDB(findCallBack);
   return (
     <>
-      <Header {...props} />
-      <Main>
         <h3>Hello! This is Roomtopia. Offer or Discover your Short-Term Rental House Quickly.</h3><br/><br/><br/>
         <div style={{width: '100%', margin: 'auto', paddingBottom: 10}}>
         <b style={{fontSize: '25px'}}>CURRENT OFFERS</b> 
@@ -76,7 +72,6 @@ const MainPage = props => {
         <CardDeck style={{width: '50%'}}>
           {cards}
         </CardDeck>
-      </Main>
     </>
   );
 };
