@@ -13,10 +13,11 @@ const MyPage = props => {
   const [from, setFrom] = useState('');
   const [to, setTo] = useState('');
   const [location, setLocation] = useState('');
+  const [videoID, setVideoID] = useState('');
   const [confirm, setConfirm] = useState(false);
 
   const db = firebase.firestore();
-  const userDoc = db.collection('userID').doc('user4');
+  const userDoc = db.collection('userID').doc(props.user);
 
   userDoc.get().then(function(doc){
       const myRegister = doc.data().MyRegister;
@@ -29,11 +30,15 @@ const MyPage = props => {
       setTo(myRegister.To)
       setLocation(myRegister.Location);
       setConfirm(myRegister.Confirm);
+
+      const rawUrl = myRegister.IntroVideo;
+      setVideoID(rawUrl.split("v=")[1].split('&')[0]);
   });
 
   return (
     <>
-      <MyPageCard RoomName={roomName} Explanation={explanation} From={from} To={to} CostperDay={cost} requestNum={requestNum} Location={location} Confirm={confirm}/>
+      <h2>My Page</h2><br/>
+      <MyPageCard RoomName={roomName} Explanation={explanation} From={from} To={to} CostperDay={cost} requestNum={requestNum} Location={location} Confirm={confirm} VideoID={videoID}/>
     </>
   );
 };

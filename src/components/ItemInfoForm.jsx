@@ -1,5 +1,5 @@
 import React, { useState, Component } from 'react';
-import {Form, Row, Col} from 'react-bootstrap';
+import {Form} from 'react-bootstrap';
 import YoutubeEmbeded from '../components/YouTubeEmbeded';
 import firebase from '../components/Firestore';
 
@@ -55,24 +55,29 @@ function ItemInfoForm(props) {
 
     return(
         <Form>
-            <Form.Group as={Row}> 
-                <Form.Label column sm="2">Room Name</Form.Label>
-                <Col sm="10">
+            <h2>Item Information</h2><br/>
+            <Form.Group> 
+                <Form.Label>Room Name</Form.Label>
                 <Form.Control placeholder={roomName} disabled />
-                </Col>
             </Form.Group>
             <Form.Group>
-                <Form.Label>Cost (/Day)</Form.Label>
+                <Form.Label>Intro Video</Form.Label>
+                <Form.Control placeholder="Intro Video" disabled />
+                <YoutubeEmbeded url={videoID} />
+            </Form.Group>    
+            <Form.Group>
+                <Form.Label>Location</Form.Label>
+                <Form.Control placeholder={location} disabled />
+            </Form.Group>
+            <Form.Group>
+                <Form.Label>Cost per Day</Form.Label>
                 <Form.Control placeholder={cost} disabled />
             </Form.Group>
             <Form.Group>
                 <Form.Label>Term</Form.Label>
                 <Form.Control placeholder={from + " ~ " + to} disabled />
             </Form.Group>
-            <Form.Group>
-                <Form.Label>Location</Form.Label>
-                <Form.Control placeholder={location} disabled />
-            </Form.Group>
+
             <Form.Group>
                 <Form.Label>Room Structure</Form.Label>
                 <Form.Control placeholder={roomStructure} disabled />
@@ -99,11 +104,6 @@ function ItemInfoForm(props) {
                 <Form.Label>Explanation</Form.Label>
                 <Form.Control placeholder={explanation} disabled />
             </Form.Group>
-            <Form.Group>
-                <Form.Label>Intro Video</Form.Label>
-                <Form.Control placeholder="Intro Video" disabled />
-                <YoutubeEmbeded url={videoID} />
-            </Form.Group>            
         </Form>
     )
 }
