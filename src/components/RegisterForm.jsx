@@ -15,7 +15,7 @@ const Margin = styled.div`
   margin: 0 auto;
 `
 
-const userID = "user2";
+
 
 const RandomRequset = (startDate, endDate) => {
   const Start = startDate.format("YYYYMMDD");
@@ -39,7 +39,7 @@ const RandomRequset = (startDate, endDate) => {
 }
 
 const writeData = (userID, RoomName, IntroVideo, Location, CostperDay, startDate, endDate, RoomStructure, RoomSize, Options, Explanation, firstRequestEnd, secondRequestStart) => {
-  return firebase.firestore().collection('userID').doc(userID).doc(Request)
+  return firebase.firestore().collection('userID').doc(userID)
       .update({
         MyRegister: {
           RoomName: RoomName,

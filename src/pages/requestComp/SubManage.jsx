@@ -1,7 +1,7 @@
 //importing react components and css
 import React, {useState} from 'react';
 import Form from 'react-bootstrap/Form';
-
+import { Link } from 'react-router-dom';
 import SampleReq from './SampleReq.jsx';
 import PageTitle from './pagetitle.jsx';
 import ConfirmData from './requestdata.jsx';
@@ -106,7 +106,7 @@ class FormMing extends React.Component{
       reqDatas.map((users, i) => (
         <MyCheckbox
           key = {i} className = "hong-checkbox"
-          request = {users.id}
+          request = {users.id} From = {users.From} To = {users.To}
           handleChildbox = {this.handleChildbox}
         />))
     );
@@ -156,7 +156,9 @@ class SubManage extends React.Component{
             <FormMing handleName = {this.handleName}
               handleCalshow= {this.handleCalshow}  reqDbase ={rcdata} />
             <div className="confirmbutton">
-              <ConfirmData handleConfirm1 = {this.handleConfirm2}/>
+              <Link to = "/MyPage">
+                <ConfirmData handleConfirm1 = {this.handleConfirm2}/>
+              </Link>
             </div>
           </div>
         </section>

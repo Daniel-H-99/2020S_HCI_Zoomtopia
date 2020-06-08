@@ -26,11 +26,11 @@ class MyCheckbox extends React.Component{
   render(){
     return (
       <Form>
-      <div className="mb-3" style = {{display:'block', width: '100px'}}>
+      <div className="mb-3" style = {{display:'block', width: '400px'}}>
         <Form.Check type='checkbox' id={`check-api-${this.props.request}`}>
           <Form.Check.Input type='checkbox'  isValid checked={this.state.checked}
            onChange={(e) => {this.handleCheckBoxClick(this.props.request, e.target.checked)}}/>
-          <Form.Check.Label>{`${this.props.request}`}</Form.Check.Label>
+          <Form.Check.Label>{`${this.props.From} ~ ${this.props.To} (${this.props.request})`}</Form.Check.Label>
         </Form.Check>
       </div>
       </Form>

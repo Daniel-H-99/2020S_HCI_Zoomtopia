@@ -3,7 +3,7 @@ import firebase from '../../components/Firestore';
 import SubManage from "./SubManage";
 
 const writeData2 = (userID, reqidx) => {
-  return firebase.firestore().collection('userID').doc(userID).collection('Request').update({
+  return firebase.firestore().collection('userID').doc(userID).collection('Request[0]').update({
     reqidx: {
       Confirm: true
 
@@ -11,7 +11,7 @@ const writeData2 = (userID, reqidx) => {
   });
 }
 const writeData1 = (userID) => {
-  return firebase.firestore().collection('userID').doc(userID).collection('MyRegister')update({
+  return firebase.firestore().collection('userID').doc(userID).collection('MyRegister').update({
       Confirm: true
   });
 }
@@ -44,16 +44,17 @@ const RequestManage = props => {
       return;
     }
     let indexlist = [];
-    writeData1('user2');
-    for(let name in ranges){
-      for (let i =0; i<this.requestsNum; i++) {
-        if(ranges[name]==this.requests[i].id){this.requests[i].Confirm = true;}
-        indexlist = indexlist.concat(i);
-      };
-    }
-    for(let j = 0; j<indexlist.length;j++){
-      writeData2('user2', j)
-    }
+
+    // writeData1('user2');
+    // for(let name in ranges){
+    //   for (let i =0; i<this.requestsNum; i++) {
+    //     if(ranges[name]==this.requests[i].id){this.requests[i].Confirm = true;}
+    //     indexlist = indexlist.concat(i);
+    //   };
+    // }
+    // for(let j = 0; j<indexlist.length;j++){
+    //   writeData2('user2', j)
+    // }
     alert("Confirm succeed!");
   }
 
