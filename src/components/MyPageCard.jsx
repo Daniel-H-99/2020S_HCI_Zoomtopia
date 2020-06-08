@@ -15,6 +15,22 @@ function MyPageCard(props) {
         setDefaultText(defaultContent);
         setShow(true);
     }
+    const handleFail = () => {
+        alert("Please select at least 1 domain!");
+    }
+
+    const [checking, setChecking] = useState(0);
+    const updateChecking = (e) => {
+      if (e.target.checked) {
+        console.log(e.target.id + " check! " +checking);
+        setChecking(checking + 1);
+      } else {
+        console.log(e.target.id + " uncheck! " +checking);
+        setChecking(checking - 1);
+      }
+      console.log("after" + checking);
+    }
+
 
   const photoURL = 'https://img.youtube.com/vi/'+props.VideoID+'/0.jpg';
   return (
@@ -64,9 +80,12 @@ function MyPageCard(props) {
                             <Button variant="link" size="sm">(?)</Button>
                         </OverlayTrigger>{' '}
                         <Form.Group controlId="domainCheckBox">
-                            <Form.Check inline type="checkbox" label="KAIST" />
-                            <Form.Check inline type="checkbox" label="CMU" />
-                            <Form.Check inline type="checkbox" label="MIT" />
+                            <Form.Check inline type="checkbox" label="KAIST"  onChange={updateChecking}/>
+                            <Form.Check inline type="checkbox" label="Postec"  onChange={updateChecking}/>
+                            <Form.Check inline type="checkbox" label="ChungNam Univ."  onChange={updateChecking}/>
+                            <Form.Check inline type="checkbox" label="Seoul Univ."  onChange={updateChecking}/>
+                            <Form.Check inline type="checkbox" label="Korea Univ."  onChange={updateChecking}/>
+                            <Form.Check inline type="checkbox" label="Daejon Cyber Univ."  onChange={updateChecking}/>
                         </Form.Group> 
                         <Form.Group>
                             <Form.Label>Please fill in the promotional content</Form.Label>
@@ -87,9 +106,15 @@ function MyPageCard(props) {
                         <Button variant="secondary" onClick={handleClose}>
                             Close
                         </Button>
-                        <Button variant="primary" onClick={handleSuccess}>
-                            Send
-                        </Button>
+                        {checking == 0 ? 
+                            <Button variant="primary" onClick={handleFail}>
+                                Send
+                            </Button>
+                            :
+                            <Button variant="primary" onClick={handleSuccess}>
+                                Send
+                            </Button>
+                        }
                     </Modal.Footer>
                 </Modal>
                 </>
