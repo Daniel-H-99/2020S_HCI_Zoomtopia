@@ -36,19 +36,19 @@ const MainPage = props => {
           return (
           <Card style={{ width: '18rem' }}>
           <Card.Img variant="top" src={photoURL} />
-          <Card.Body>
-            <Card.Title>{room.RoomName}</Card.Title>
-            <Card.Text>
+          <Card.Body style={{height: "5rem"}}>
+            <Card.Title style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis"}}>{room.RoomName}</Card.Title>
+            <Card.Text style={{whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis"}}>
               {room.Explanation}
             </Card.Text>
           </Card.Body>
           <ListGroup className="list-group-flush">
             <ListGroupItem>{room.Location}</ListGroupItem>
             <ListGroupItem>{room.RoomSize + '  pyeong'}</ListGroupItem>
-            <ListGroupItem>{room.From}</ListGroupItem>
+            <ListGroupItem>{room.From} ~ {room.To}</ListGroupItem>
           </ListGroup> 
           <Card.Body>           
-            <Button variant="primary">Go somewhere</Button>
+            <Button variant="primary">See Detail</Button>
           </Card.Body>
         </Card>
         )})}
@@ -70,7 +70,7 @@ const MainPage = props => {
         {authed?<Button style={{float: 'right'}} variant="primary">+ Register Offer</Button>:null}
         </Link>
         </div>
-        <CardDeck style={{width: '50%'}}>
+        <CardDeck style={{width: '100%'}}>
           {cards}
         </CardDeck>
     </>

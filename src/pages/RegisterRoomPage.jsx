@@ -6,7 +6,7 @@ import RegisterForm from '../components/RegisterForm';
 const RegisterRoomPage = props => {
   return (
     <>
-      <RegisterForm/>
+      <RegisterForm user={props.user}/>
     </>
   );
 };

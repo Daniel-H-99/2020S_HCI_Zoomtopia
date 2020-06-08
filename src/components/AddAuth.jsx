@@ -7,7 +7,7 @@ import firebase from '../components/Firestore';
 const db = firebase.firestore();
 const addUserDB = (email, name, password, callback) => {
   const userObj = {Credential: {email: email, name: name, password: password}};
-  db.collection('userID').add(userObj).then(ref => {
+  db.collection('userID').doc(email).set(userObj).then(ref => {
     callback(ref);
   });
 }

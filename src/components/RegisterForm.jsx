@@ -102,7 +102,6 @@ class RegisterForm extends Component {
       Explanation: ''
     }
   }
-  
   parsingDate = (e) => {
     this.state.startDate = this.state.startDate.format("YYYY-MM-DD");
     this.state.endDate = this.state.endDate.format("YYYY-MM-DD");
@@ -178,7 +177,7 @@ class RegisterForm extends Component {
       
       this.setState({[this.state.checking]: true})
       console.log(this.state.checking)
-      writeData(userID, this.state.RoomName, this.state.IntroVideo, this.state.Location, this.state.CostperDay, this.state.startDate, this.state.endDate, this.state.RoomStructure, this.state.RoomSize, this.state.Options, this.state.Explanation, firstRequestEnd, secondRequestStart);
+      writeData(this.props.user, this.state.RoomName, this.state.IntroVideo, this.state.Location, this.state.CostperDay, this.state.startDate, this.state.endDate, this.state.RoomStructure, this.state.RoomSize, this.state.Options, this.state.Explanation, firstRequestEnd, secondRequestStart);
       alert('Success to register your room!');
       console.log("9");
       this.props.history.push("/MyPage");
