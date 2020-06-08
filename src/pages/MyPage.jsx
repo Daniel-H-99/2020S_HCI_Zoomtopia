@@ -22,22 +22,27 @@ const MyPage = props => {
   userDoc.get().then(function(doc){
       const myRegister = doc.data().MyRegister;
       const requests = doc.data().Request;
-      setRequestNum(requests.length);
-      setRoomName(myRegister.RoomName);
-      setExplanation(myRegister.Explanation);
-      setCost(myRegister.CostperDay);
-      setFrom(myRegister.From);
-      setTo(myRegister.To)
-      setLocation(myRegister.Location);
-      setConfirm(myRegister.Confirm);
+      if (requests !== undefined){
+        setRequestNum(requests.length);
+      }
+      if (myRegister !== undefined) {
+        setRoomName(myRegister.RoomName);
+        setExplanation(myRegister.Explanation);
+        setCost(myRegister.CostperDay);
+        setFrom(myRegister.From);
+        setTo(myRegister.To)
+        setLocation(myRegister.Location);
+        setConfirm(myRegister.Confirm);
 
-      const rawUrl = myRegister.IntroVideo;
-      setVideoID(rawUrl.split("v=")[1].split('&')[0]);
+        const rawUrl = myRegister.IntroVideo;
+        setVideoID(rawUrl.split("v=")[1].split('&')[0]);
+      }
   });
 
   return (
     <>
-      <h2>My Page</h2><br/>
+      <br/><h2 style={{ fontFamily: 'Ubuntu, sans-serif'}}>My Page</h2>
+      <hr/><br/>
       <MyPageCard RoomName={roomName} Explanation={explanation} From={from} To={to} CostperDay={cost} requestNum={requestNum} Location={location} Confirm={confirm} VideoID={videoID}/>
     </>
   );

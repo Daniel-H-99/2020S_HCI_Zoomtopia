@@ -39,7 +39,7 @@ const RandomRequset = (startDate, endDate) => {
 }
 
 const writeData = (userID, RoomName, IntroVideo, Location, CostperDay, startDate, endDate, RoomStructure, RoomSize, Options, Explanation, firstRequestEnd, secondRequestStart) => {
-  return firebase.firestore().collection('userID').doc(userID)
+  return firebase.firestore().collection('userID').doc(userID).doc(Request)
       .update({
         MyRegister: {
           RoomName: RoomName,
@@ -187,6 +187,7 @@ class RegisterForm extends Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
+        <br/><h2 style={{ fontFamily: 'Ubuntu, sans-serif'}}>Register Room</h2><hr/><br/>
         <Form>
           <Form.Group controlId="RoomName">
             <Form.Label>Room Name</Form.Label>

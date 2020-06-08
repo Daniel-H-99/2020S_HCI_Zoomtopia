@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const MainStyle = styled.div`
   display: table-cell;
   padding-top: 4rem;
+  padding-bottom: 4rem;
   padding-left: 300px;
   padding-right: 300px;
   z-index: 1;
