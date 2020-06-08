@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { Link, Redirect, RouteComponentProps } from 'react-router-dom';
-import createHistory from 'history/createBrowserHistory'
-import { createHashHistory } from 'history'
+import { Link, Redirect, withRouter } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 import styled from 'styled-components';
 import 'react-dates/initialize';
@@ -18,7 +16,6 @@ const Margin = styled.div`
 `
 
 const userID = "user2";
-const history = createHashHistory();
 
 const RandomRequset = (startDate, endDate) => {
   const Start = startDate.format("YYYYMMDD");
@@ -79,29 +76,33 @@ const writeData = (userID, RoomName, IntroVideo, Location, CostperDay, startDate
 
 
 class RegisterForm extends Component {
-  state = {
-    checking: false,
-    RoomName: '',
-    IntroVideo: '',
-    Location: '',
-    CostperDay: '',
-    startDate: null,
-    endDate: null,
-    RoomStructure: 'One Room',
-    RoomSize: '',
-    Options: {
-      Aircon: false,
-      Refriger: false,
-      Washer: false,
-      Gasrange: false,
-      Bed: false,
-      Desk: false,
-      Wardrobe: false,
-      Sink: false,
-      Stove: false
-    },
-    Explanation: ''
+  constructor(props) {
+    super(props);
+    this.state = {
+      checking: false,
+      RoomName: '',
+      IntroVideo: '',
+      Location: '',
+      CostperDay: '',
+      startDate: null,
+      endDate: null,
+      RoomStructure: 'One Room',
+      RoomSize: '',
+      Options: {
+        Aircon: false,
+        Refriger: false,
+        Washer: false,
+        Gasrange: false,
+        Bed: false,
+        Desk: false,
+        Wardrobe: false,
+        Sink: false,
+        Stove: false
+      },
+      Explanation: ''
+    }
   }
+  
   parsingDate = (e) => {
     this.state.startDate = this.state.startDate.format("YYYY-MM-DD");
     this.state.endDate = this.state.endDate.format("YYYY-MM-DD");
@@ -180,15 +181,12 @@ class RegisterForm extends Component {
       writeData(userID, this.state.RoomName, this.state.IntroVideo, this.state.Location, this.state.CostperDay, this.state.startDate, this.state.endDate, this.state.RoomStructure, this.state.RoomSize, this.state.Options, this.state.Explanation, firstRequestEnd, secondRequestStart);
       alert('Success to register your room!');
       console.log("9");
-      history.push("/MainPage");
+      this.props.history.push("/MyPage");
     }
     
   }
   render() {
     return (
-      this.state.checking?
-        <Redirect to="/MainPage"/>
-      :
       <form onSubmit={this.handleSubmit}>
         <Form>
           <Form.Group controlId="RoomName">
@@ -267,9 +265,8 @@ class RegisterForm extends Component {
           </Button>
         </Form>
       </form>
-      
     );
   }
 }
 
-export default RegisterForm;
+export default withRouter(RegisterForm);
