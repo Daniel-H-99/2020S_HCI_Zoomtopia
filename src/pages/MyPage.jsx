@@ -1,41 +1,49 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Header from '../components/Header';
 import Main from '../components/Main';
 import firebase from '../components/Firestore';
-import {Card, CardDeck, Badge, ListGroup, ListGroupItem} from 'react-bootstrap';
+import MyPageCard from "../components/MyPageCard";
+
 
 const MyPage = props => {
+  const [requestNum, setRequestNum] = useState(0);
+  const [roomName, setRoomName] = useState('');
+  const [explanation, setExplanation] = useState('');
+  const [cost, setCost] = useState(0);
+  const [from, setFrom] = useState('');
+  const [to, setTo] = useState('');
+  const [location, setLocation] = useState('');
+  const [videoID, setVideoID] = useState('');
+  const [confirm, setConfirm] = useState(false);
+
   const db = firebase.firestore();
-//   db.collection("userID").add({
-//       field1: "prop1",
-//       field2: "prop2"
-//   });
+  const userDoc = db.collection('userID').doc(props.user);
+
+  userDoc.get().then(function(doc){
+      const myRegister = doc.data().MyRegister;
+      const requests = doc.data().Request;
+      if (requests !== undefined){
+        setRequestNum(requests.length);
+      }
+      if (myRegister !== undefined) {
+        setRoomName(myRegister.RoomName);
+        setExplanation(myRegister.Explanation);
+        setCost(myRegister.CostperDay);
+        setFrom(myRegister.From);
+        setTo(myRegister.To)
+        setLocation(myRegister.Location);
+        setConfirm(myRegister.Confirm);
+
+        const rawUrl = myRegister.IntroVideo;
+        setVideoID(rawUrl.split("v=")[1].split('&')[0]);
+      }
+  });
+
   return (
     <>
-      <Header/>
-      <Main>
-        <div>This is MyPage</div>
-        <Card style={{ width: '18rem' }}>
-            <Card.Img variant="top" src={require('../images/Sample.png')} />
-            <Card.Body>
-                <Card.Title>Room Name</Card.Title>
-                <Card.Text>
-                Description Text Here
-                </Card.Text>
-            </Card.Body>
-            <ListGroup className="list-group-flush">
-                <ListGroupItem>Period</ListGroupItem>
-                <ListGroupItem>Cost</ListGroupItem>
-                <ListGroupItem>Contract Status</ListGroupItem>
-            </ListGroup>
-            <Card.Body>
-                <Card.Link href="#">View detail</Card.Link>
-                <Card.Link href="#">
-                    Check Request<Badge variant="light">4</Badge>
-                </Card.Link>
-            </Card.Body>
-            </Card>
-      </Main>
+      <br/><h2 style={{ fontFamily: 'Ubuntu, sans-serif'}}>My Page</h2>
+      <hr/><br/>
+      <MyPageCard RoomName={roomName} Explanation={explanation} From={from} To={to} CostperDay={cost} requestNum={requestNum} Location={location} Confirm={confirm} VideoID={videoID}/>
     </>
   );
 };

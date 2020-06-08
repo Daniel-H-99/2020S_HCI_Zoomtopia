@@ -6,6 +6,7 @@ const writeData2 = (userID, reqidx) => {
   return firebase.firestore().collection('userID').doc(userID).collection('Request').update({
     reqidx: {
       Confirm: true
+
     }
   });
 }
@@ -56,6 +57,7 @@ const RequestManage = props => {
     alert("Confirm succeed!");
   }
 
+
   return (
     <>
       <SubManage RoomName={roomName} From={from} To={to}
@@ -63,5 +65,6 @@ const RequestManage = props => {
     </>
   );
 };
+
 export default RequestManage;
 //reqDBase ={reQuest}

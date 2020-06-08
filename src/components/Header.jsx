@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import {Button, Modal ,Form} from 'react-bootstrap';
-import { Route, Link } from 'react-router-dom';
+import {Button, Dropdown, ButtonGroup} from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import SignInModal from './SignInModal';
+
 // const StyledHeader = styled.div`
 //   height: 40px;
 //   padding: 5px;
@@ -13,7 +15,7 @@ import { Route, Link } from 'react-router-dom';
 
 const NavHeader = styled.nav`
   padding: 0.5rem 1rem !important;
-  background-color: #333940;
+  background-color: black;
   letter-spacing: 0.05rem;
   font-weight: bold;
   position: absolute;
@@ -27,6 +29,7 @@ const FontsHeader = styled.span`
   color: white;
   text-transform: uppercase;
   letter-spacing: 0.1rem;
+  font-size: 18pt;
 `;
 
 const Icon = styled.img`
@@ -76,109 +79,9 @@ const SideList = () => {
   );
 };
 
-function SignInModal(props) {
-  const {signIn, convert} = props
-  return (
-    signIn?
-    <Modal
-      {...props}
-      size="sm"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Sign In
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form>
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control name = 'email' type="email" placeholder="Enter email" />
-            <Form.Text className="text-muted">
-              We'll never share your email with anyone else.
-            </Form.Text>
-          </Form.Group>
-
-          <Form.Group controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control name = 'pw' type="password" placeholder="Password" />
-          </Form.Group>
-          <Form.Row className="align-items-center">
-          <div style={{margin: 'auto'}}>
-        <Link to={{
-          pathname: '/',
-          state: {
-            p : "passed"
-          }
-        }}>
-          <Button variant="dark" type="submit" >
-              Submit
-          </Button>
-          </Link>
-          </div>
-          </Form.Row>
-        </Form>
-      </Modal.Body>
-      <Modal.Footer style={{fontSize: 10, height: 25, padding: 0, margin: 0}}>
-        <div style={{margin: 'auto'}}>
-        Aren't you a member? <Button style={{height: 20, fontSize: 12, padding: 0, margin: 0}} variant='link' onClick={convert}> Sign UP </Button>
-        </div>
-      </Modal.Footer>
-    </Modal> :
-    <Modal
-      {...props}
-      size="sm"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Sign Up
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form action="/RegisterRoom">
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control name = 'email' type="email" placeholder="Enter email" />
-            <Form.Text className="text-muted">
-              We'll never share your email with anyone else.
-            </Form.Text>
-          </Form.Group>
-          <Form.Group controlId="formBasicName">
-            <Form.Label>Name</Form.Label>
-            <Form.Control name = 'name' type="name" placeholder="Enter Name" />
-            <Form.Text className="text-muted">
-              First name/ Second name
-            </Form.Text>
-          </Form.Group>
-          <Form.Group controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control name = 'pw' type="password" placeholder="Password" />
-          </Form.Group>
-          <Form.Row className="align-items-center">
-            <div style={{margin: 'auto'}}>
-            <Button variant="dark" type="submit" >
-                Submit
-            </Button>
-            </div>
-          </Form.Row>
-        </Form>
-      </Modal.Body>
-      <Modal.Footer style={{fontSize: 10, height: 25, padding: 0, margin: 0}}>
-        <div style={{margin: 'auto'}}>
-          Are you a member? <Button style={{height: 20, fontSize: 12, padding: 0, margin: 0}} variant='link' onClick={convert}> Sign In </Button>
-        </div>
-      </Modal.Footer>
-    </Modal>
-
-  );
-}
 const Header = props => {
-  const { children } = props;
-
+  const { children, authed, user, setUser, setAuthed} = props;
+  //console.log(authed, user);
   const [toggle, setToggle] = useState(false);
 
   const onIncrease = e => {
@@ -191,19 +94,32 @@ const Header = props => {
   return (
     <>
       <NavHeader>
-        <span>
-          {/*<Logo src={require('../images/mamago_logo.png')}></Logo> */}
-          <FontsHeader>Zoomtopia</FontsHeader>
-        </span>
-        <ButtonStyle type="button" onClick={onIncrease}>
-          <ImageButton src={require('../icons/menu.png')} />
-        </ButtonStyle>
-        <ImageButton src={require('../icons/settings.png')} />
-        <ImageButton src={require('../icons/home.png')} />
-        {toggle && <SideList />}
-        <Button style={{float: 'right', marginRight: 10}} onClick={() => {setModalShow(true); changeInOrUp(true);}} variant="outline-light">Sign In</Button>
+        <Link to="/">
+          <span>
+            <FontsHeader>Roomtopia</FontsHeader>
+          </span>
+        </Link>
+        {!authed?
+            <Button style={{float: 'right', marginRight: 10}} onClick={() => {setModalShow(true)}} variant="outline-light">Sign In</Button> :
+            <Dropdown as={ButtonGroup} style={{float: 'right', marginRight: 10}}>
+              <Button style={{float: 'right', marginRight: 0}} variant="outline-light">{user}</Button>    
+              <Dropdown.Toggle split variant="outline-light" id="dropdown-basic"></Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item onClick={() => {setUser(null);setAuthed(false)}}>Sign Out</Dropdown.Item>  
+              </Dropdown.Menu>
+            </Dropdown>
+        }
+
+        {!authed?
+            <Button style={{float: 'right', marginRight: 10}} onClick={() => {setModalShow(true)}} variant="outline-light">My Page</Button> :
+          <Link to="/MyPage">
+            <Button style={{float: 'right', marginRight: 10}} variant="outline-light">My Page</Button>  
+          </Link>
+        }  
+        
       </NavHeader>
-      <SignInModal show={modalShow} onHide={() => setModalShow(false)} signIn = {isSignIn} convert={() => changeInOrUp(prev => !prev)}/>
+      {modalShow?<SignInModal closable show={modalShow} onHide={() => setModalShow(false)}/>:null}
+      
       {children}
     </>
   );
