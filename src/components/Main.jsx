@@ -11,6 +11,9 @@ const MainStyle = styled.div`
   box-sizing: border-box;
   vertical-align: middle; 
   margin: 0 auto;
+  background: linear-gradient(to right bottom, 	#DCEBFF, #E6FFE6);
+
+
 `;
 
 const Main = props => {

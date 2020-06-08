@@ -15,7 +15,7 @@ import SignInModal from './SignInModal';
 
 const NavHeader = styled.nav`
   padding: 0.5rem 1rem !important;
-  background-color: #333940;
+  background-color: black;
   letter-spacing: 0.05rem;
   font-weight: bold;
   position: absolute;
@@ -110,12 +110,6 @@ const Header = props => {
             </Dropdown>
         }
 
-        {!authed?
-            <Button style={{float: 'right', marginRight: 10}} onClick={() => {setModalShow(true)}} variant="outline-light">Calender</Button> :
-          <Link to="/requestM">
-            <Button style={{float: 'right', marginRight: 10}} variant="outline-light">Calender</Button>  
-          </Link>
-        }
         {!authed?
             <Button style={{float: 'right', marginRight: 10}} onClick={() => {setModalShow(true)}} variant="outline-light">My Page</Button> :
           <Link to="/MyPage">

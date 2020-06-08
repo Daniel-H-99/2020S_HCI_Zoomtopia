@@ -26,8 +26,8 @@ const ScrollToTop = withRouter(({ children, location: { pathname } }) => {
 
 
 function App(props) {
-  const [user, setUser] = useState('user4');
-  const [authed, setAuthed] = useState(true);
+  const [user, setUser] = useState(null);
+  const [authed, setAuthed] = useState(false);
   const AuthGate = (props) => authed? props.children : <Redirect to={{
     pathname:"/SignInModal"}}/> 
   return (
