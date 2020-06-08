@@ -10,10 +10,8 @@ const writeData2 = (userID, reqidx) => {
   });
 }
 const writeData1 = (userID) => {
-  return firebase.firestore().collection('userID').doc(userID).update({
-    MyRegister:{
+  return firebase.firestore().collection('userID').doc(userID).collection('MyRegister')update({
       Confirm: true
-    },
   });
 }
 
