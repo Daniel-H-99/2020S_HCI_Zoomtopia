@@ -14,6 +14,7 @@ class ConfirmData extends React.Component {
     this.setState(prevState => ({
       isToggleOn: !prevState.isToggleOn
     }));
+    this.props.handleConfirm1();
   }
 
   render() {
