@@ -1,12 +1,13 @@
 # 2020S_HCI
 This is for Design Project in HCI lecture in KAIST. 
 
+## Hosting URL: https://fir-hci-zoomtopia.firebaseapp.com/
 
 ## Libraries
     - Front-end: React.js
     - Back-end: Firebase
     - Hosting: Firebase Hosting
-    - Dependencies : react-create-app, react-router-dom, styled-components, firebase, react-youtube
+    - npm packages : react-create-app, react-router-dom, styled-components, bootstrap, firebase, react-youtube, react-date-range, react-dates
 
 ## Target User
     The university students lodgers who go back to their hometown need to offer a short-term house rental quickly during vacation 
@@ -19,41 +20,47 @@ This is for Design Project in HCI lecture in KAIST.
     2. Advertise your room on sale by emailing to KAIST group.
     3. Review requests and confirm all appropriate ones.
 
-## Implementation
-    1. Main Page (Include Log-in)
-    2. Sign Up Page
-    3. Register Room page
-    4. My page
-    5. Item Info
-    6. Request Management
 
-1,2(황)/ 3(email, video)(김)/ 4,5(+ db)(엄) /6(홍)
-Due 6.3(wed) 23:59 
 
 ## DB
-    /userID/myregister/
-    - RoomName
-    - Location
-    - Cost/
-        perDay
-        perWeek
-        perMonth
-    - Term/
-        origin
-        available
-        not
-    - RoomStructure
-    - RoomSize (float)
-    - Options/ [array]
-    - AdvertiseTo/ [array]
-    - Explanation (str)
-    - IntroVideo (youtube url)
-    - Request/ [Jsonarray]
-
-    /userID/credential/
-    - Name
-    - Password
-    - Email
+    /userID/{userID}/
+        Credential: {
+            Name
+            Password
+            Email
+        }
+        MyRegister: {
+            RoomName
+            IntroVideo
+            Location
+            CostperDay
+            From
+            To
+            RoomStructure
+            RoomSize
+            Options: {
+                Aircon
+                Refriger
+                Washer
+                Gasrange
+                Bed
+                Desk
+                Wardrobe
+                Sink
+                Stove
+            }
+            Explanation
+            Confirm
+        },
+        Request: 
+          [{
+            email
+            id
+            phone
+            From
+            To
+            Confirm
+          }]
 
 
 --- 
