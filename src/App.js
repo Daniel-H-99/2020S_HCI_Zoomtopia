@@ -38,7 +38,7 @@ function App(props) {
         <Main>
           <Suspense fallback="loading">
             <Switch>
-              <Route exact path="/" render={props => <MainPage {...props} user={user} authed={authed}/>}/>
+              <Route exact path="/" component= {() => <MainPage {...props} user={user} authed={authed}/>}/>
               <Route exact path="/Auth" render={props => <Auth {...props} setUser={setUser} setAuthed={setAuthed}/>}/>
               <Route exact path="/AddAuth" component = {AddAuth}/> 
               <Route exact path="/SignInModal" render={props => <SignInModal {...props} show={true}/>}/>            

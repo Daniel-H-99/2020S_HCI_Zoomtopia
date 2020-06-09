@@ -5,7 +5,7 @@ import { Route, Link } from 'react-router-dom';
 import firebase from '../components/Firestore';
 const db = firebase.firestore();
 const findRoomsInDB = (callback) => {
-  const query = db.collection('userID').limit(10);
+  const query = db.collection('userID');
   query.get().then(snapshot => {
     const rooms = [];
     snapshot.forEach(doc => {
@@ -29,7 +29,9 @@ const MainPage = props => {
   const {authed, user} = props;
   const deckRef = useRef();
   const [cards, setCards] = useState(<></>);
+  const [refreshed, setRefresh] = useState(false)
   const findCallBack = (rooms) => {
+    rooms= rooms.slice(0, 3)
     setCards (
       <>
         {rooms.map(room => {
@@ -56,7 +58,10 @@ const MainPage = props => {
         )})}
       </>)
   }
-  findRoomsInDB(findCallBack);
+  if (!refreshed){
+    findRoomsInDB(findCallBack);
+    setRefresh(true)
+  }
   return (
     <>
       <div style={{marginTop: 100}}>
