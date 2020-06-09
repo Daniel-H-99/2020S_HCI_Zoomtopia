@@ -4,6 +4,7 @@ import {Button, Modal ,Form} from 'react-bootstrap';
 import { Route, Link, Redirect } from 'react-router-dom';
 
 const SignInModal = (props) => {
+  const {modalClose} = props
   const headerprop = props.closable?{closeButton: true}:{}
   const [signIn, convert] = useState(true);
   const emailRef = useRef();
@@ -22,9 +23,10 @@ const SignInModal = (props) => {
     setSubmit(true);
   }
   if (submit) {
+    if (props.onHide != null){
+      props.onHide()
+    }
     if (!signIn){
-      console.log('sending')
-      
       return <Redirect to={{
               pathname: '/AddAuth',
               state: {

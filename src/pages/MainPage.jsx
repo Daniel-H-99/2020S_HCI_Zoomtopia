@@ -50,9 +50,23 @@ const MainPage = props => {
             <ListGroupItem>{room.RoomSize + '  m^2'}</ListGroupItem>
             <ListGroupItem>{room.From} ~ {room.To}</ListGroupItem>
           </ListGroup> 
-          <Card.Body>
-            <Button variant="secondary">See Detail</Button>
-            <Button style={{marginLeft: 20}} variant="secondary">Contact this</Button>
+          <Card.Body style={{paddingLeft: 0, paddingRight: 0}}>
+          <table style={{width: "100%", margin: 'auto'}}>
+            <td style={{width: "50%"}}>
+              <div style={{width: "100%"}}>
+                <div style={{marginLeft: '3rem'}}>
+                  <Button variant="secondary">{" See Detail "}</Button>
+                </div>
+              </div>
+            </td>
+            <td style={{width: "50%"}}>
+              <div style={{width: "100%"}}>
+                <div style={{marginLeft: '1rem'}}>
+                  <Button variant="secondary">Contact this</Button>
+                </div>
+              </div>
+            </td>
+          </table>
           </Card.Body>
         </Card>
         )})}

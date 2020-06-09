@@ -100,7 +100,7 @@ const Header = props => {
           </span>
         </Link>
         {!authed?
-            <Button style={{float: 'right', marginRight: 10}} onClick={() => {setModalShow(true)}} variant="outline-light">Sign In</Button> :
+            <Button style={{float: 'right', marginRight: 10}} onClick={() => {console.log (22);setModalShow(true)}} variant="outline-light">Sign In</Button> :
             <Dropdown as={ButtonGroup} style={{float: 'right', marginRight: 10}}>
               <Button style={{float: 'right', marginRight: 0}} variant="outline-light">{user}</Button>    
               <Dropdown.Toggle split variant="outline-light" id="dropdown-basic"></Dropdown.Toggle>
@@ -118,7 +118,7 @@ const Header = props => {
         }  
         
       </NavHeader>
-      {modalShow?<SignInModal closable show={modalShow} onHide={() => setModalShow(false)}/>:null}
+      {modalShow?<SignInModal closable show={modalShow} onHide={() => {setModalShow(false);console.log(44);}}/>:null}
       
       {children}
     </>
