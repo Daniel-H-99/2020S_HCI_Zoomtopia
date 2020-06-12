@@ -11,7 +11,11 @@ function MyPageCard(props) {
         alert("Email has been sent successfully!");
     }
     const handleShow = () => {
-        const defaultContent = "Location: " + props.Location + "\nCost: " + props.CostperDay + "\nTerm: " + props.From + " ~ " + props.To ;
+        const defaultContent = "Roomtopia suggest new room to you!" + 
+                                "\nLocation: " + props.Location + 
+                                "\nCost: " + props.CostperDay + 
+                                "\nTerm: " + props.From + " ~ " + props.To + 
+                                "\nAdd your comment here!";
         setDefaultText(defaultContent);
         setShow(true);
     }
@@ -69,7 +73,7 @@ function MyPageCard(props) {
                         <Modal.Title>Email Advertisement</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <Form.Label>Select target community</Form.Label>
+                        <Form.Label><b>Select target community</b></Form.Label>
                         <OverlayTrigger
                             placement="right"
                             overlay={
@@ -87,8 +91,36 @@ function MyPageCard(props) {
                             <Form.Check inline type="checkbox" label="Korea Univ."  onChange={updateChecking}/>
                             <Form.Check inline type="checkbox" label="Daejon Cyber Univ."  onChange={updateChecking}/>
                         </Form.Group> 
+                        <Form.Label><b>Select target preference</b></Form.Label>
+                        <OverlayTrigger
+                            placement="right"
+                            overlay={
+                            <Tooltip>
+                                If you don't check, it's considered as 'don't care'
+                            </Tooltip>
+                            }>
+                            <Button variant="link" size="sm">(?)</Button>
+                        </OverlayTrigger>{' '}
                         <Form.Group>
-                            <Form.Label>Please fill in the promotional content</Form.Label>
+                            Term<br/>
+                            <Form.Check inline type="checkbox" label="~5 days"/>
+                            <Form.Check inline type="checkbox" label="~10 days"/>
+                            <Form.Check inline type="checkbox" label="~20 days"/>
+                            <Form.Check inline type="checkbox" label="~30 days"/>
+                            <Form.Check inline type="checkbox" label="31~ days"/>
+                        </Form.Group> 
+                        <Form.Group>
+                            Allow smoking<br/>
+                            <Form.Check inline type="checkbox" label="Yes"/>
+                            <Form.Check inline type="checkbox" label="No"/>
+                        </Form.Group> 
+                        <Form.Group>
+                            Gender<br/>
+                            <Form.Check inline type="checkbox" label="Male"/>
+                            <Form.Check inline type="checkbox" label="Female"/>
+                        </Form.Group> 
+                        <Form.Group>
+                            <Form.Label><b>Please fill in the promotional content</b></Form.Label>
                             <OverlayTrigger
                             placement="right"
                             overlay={

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import Header from '../components/Header';
-import Main from '../components/Main';
+import { Link } from 'react-router-dom';
+import {Button} from 'react-bootstrap';
 import firebase from '../components/Firestore';
 import MyPageCard from "../components/MyPageCard";
 
@@ -15,6 +15,7 @@ const MyPage = props => {
   const [location, setLocation] = useState('');
   const [videoID, setVideoID] = useState('');
   const [confirm, setConfirm] = useState(false);
+  const [isRegi, setIsRegi] = useState(false);
 
   const db = firebase.firestore();
   const userDoc = db.collection('userID').doc(props.user);
@@ -33,6 +34,7 @@ const MyPage = props => {
         setTo(myRegister.To)
         setLocation(myRegister.Location);
         setConfirm(myRegister.Confirm);
+        setIsRegi(true);
 
         const rawUrl = myRegister.IntroVideo;
         setVideoID(rawUrl.split("v=")[1].split('&')[0]);
@@ -43,7 +45,14 @@ const MyPage = props => {
     <>
       <br/><h2 style={{ fontFamily: 'Ubuntu, sans-serif'}}>My Page</h2>
       <hr/><br/>
-      <MyPageCard RoomName={roomName} Explanation={explanation} From={from} To={to} CostperDay={cost} requestNum={requestNum} Location={location} Confirm={confirm} VideoID={videoID}/>
+      {isRegi ? 
+        <MyPageCard RoomName={roomName} Explanation={explanation} From={from} To={to} CostperDay={cost} requestNum={requestNum} Location={location} Confirm={confirm} VideoID={videoID}/>
+      :
+      <Link to={{pathname: '/RegisterRoom'}}>
+      <Button style={{marginRight: 30, float: 'right'}} variant="primary">+ Register Offer</Button>
+      </Link>
+      }
+      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
     </>
   );
 };
