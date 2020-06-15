@@ -17,7 +17,7 @@ const findRoomsInDB = (callback) => {
   })  
 }
 const queryParser = (url) => {
-  const params = url.split('?')[1].split('&');
+  const params = url.split('?')[1]?url.split('?')[1].split('&'):[]
   const result = {};
   params.map((item) => {
     const [param, value] = item.split('=');
