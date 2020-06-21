@@ -10,9 +10,6 @@ import MyCheckbox from './MyCheckbox.jsx';
 import { render } from '@testing-library/react';
 import { addDays } from 'date-fns';
 
-// testing variables
-
-
 //components
 class Calview extends React.Component {
   state={
