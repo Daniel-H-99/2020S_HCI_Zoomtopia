@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Redirect, withRouter } from 'react-router-dom';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import styled from 'styled-components';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
@@ -58,9 +58,10 @@ const writeData = (userID, RoomName, IntroVideo, Location, CostperDay, startDate
           [{
             email: "dksow@kaist.ac.kr",
             id: "wlsxodyd",
-            phone: "01023251244",
+            phone: "01097657342",
             From: startDate,
             To: firstRequestEnd,
+            Explanation: "22, Male, Smoker",
             Confirm: false
           },
           {
@@ -69,6 +70,7 @@ const writeData = (userID, RoomName, IntroVideo, Location, CostperDay, startDate
             phone: "01023551244",
             From: secondRequestStart,
             To: endDate,
+            Explanation: "24, Female, Not Smoker",
             Confirm: false
           }]
       });
@@ -206,6 +208,16 @@ class RegisterForm extends Component {
 
           <Form.Group controlId="CostperDay">
             <Form.Label>Cost per Day</Form.Label>
+            <OverlayTrigger style={{textAlign: "left"}}
+              placement="right"
+              overlay={
+              <Tooltip style={{textAlign: "left"}}>
+                  ex.10000: 300thousand Won monthly fee,<p></p>
+                  15000: 450thousand Won monthly fee
+              </Tooltip>
+              }>
+              <Button variant="link" size="m">(?)</Button>
+            </OverlayTrigger>{' '}
             <Form.Control type="CostperDay" name="CostperDay" placeholder="Enter the Only Number Cost per Day (Won)" onChange={this.handleChange}/>
           </Form.Group>
 
