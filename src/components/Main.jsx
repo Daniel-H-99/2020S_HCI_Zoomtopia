@@ -29,7 +29,8 @@ const Main = props => {
         <Navbar bg="rgba(255,255,255,0)" variant="rgba(255,255,255,0)" sticky="bottom" style={{paddingTop: '10%'}}>
           <div class="footer-copyright text-center py-3" style={{width: '100%', textAlign: 'center'}}>
             <hr/>
-            © 2020 Copyright: Zoomtopia
+            © 2020 Copyright: Zoomtopia All rights reserved
+            
           </div>
         </Navbar>
       </MainStyle>;

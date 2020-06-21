@@ -37,7 +37,7 @@ const MainPage = props => {
         {rooms.map(room => {
           const photoURL = room.IntroVideo?'https://img.youtube.com/vi/'+queryParser(room.IntroVideo).v+'/0.jpg' : 'https://img.youtube.com/vi/f2V-yOVKDVU/0.jpg';
           return (
-          <Card style={{ width: '18rem', height: '30rem', padding: 0}}>
+          <Card style={{ width: '18rem', padding: 0}}>
           <Card.Img variant="top" src={photoURL} />
           <Card.Body style={{height: "6rem"}}>
             <Card.Title style={{ fontWeight: 700, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis"}}>{room.RoomName}</Card.Title>
@@ -46,18 +46,18 @@ const MainPage = props => {
             </Card.Text>
           </Card.Body>
           <ListGroup className="list-group-flush">
-            <ListGroupItem>{room.Location}</ListGroupItem>
-            <ListGroupItem>{room.RoomSize + '  m^2'}</ListGroupItem>
-            <ListGroupItem>{room.From} ~ {room.To}</ListGroupItem>
+            <ListGroupItem><div style={{height: '1.4rem', overflow:'hidden', textOverflow:"ellipsis"}}>{room.Location}</div></ListGroupItem>
+            <ListGroupItem><div style={{height: '1.4rem', overflow:'hidden', textOverflow:"ellipsis"}}>{room.RoomSize + '  m^2'}</div></ListGroupItem>
+            <ListGroupItem><div style={{height: '1.4rem', overflow:'hidden', textOverflow:"ellipsis"}}>{room.From} ~ {room.To}</div></ListGroupItem>
           </ListGroup> 
-          <Card.Body style={{padding: 0, margin: 0}} >
+          <Card.Body style={{padding: 0, margin: 0, height:'4rem'}} >
             <table style={{width: '100%', margin: 0, padding: 0}}>
               <tr>
                 <th style={{width: '50%'}}>
-                  <Button variant="secondary" style={{width: '96%', margin: '2%', verticalAlign: 'middle'}}>{" See Detail "}</Button>
+                  <Button variant="secondary" style={{height: '90%', width: '90%', margin: '5%', verticalAlign: 'middle'}}>{"Detail "}</Button>
                 </th>
                 <th style={{width: '50%'}}>
-                  <Button variant="secondary" style={{width: '96%', margin: '2%', verticalAlign: 'middle'}}>Contact</Button>
+                  <Button variant="secondary" style={{height: '90%', width: '90%', margin: '5%', verticalAlign: 'middle'}}>Contact</Button>
                 </th>
               </tr>
             </table>
