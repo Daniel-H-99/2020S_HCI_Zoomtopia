@@ -11,12 +11,6 @@ import { render } from '@testing-library/react';
 import { addDays } from 'date-fns';
 
 // testing variables
-const reqData = [
-  {username: 'kim', From:'2020-06-09', To:'2020-06-14'},
-  {username: 'hwang', From:'2020-06-15', To:'2020-06-30'},
-  {username: 'eom', From:'2020-07-01', To:'2020-07-20'}
-];
-
 
 
 //components
@@ -41,45 +35,44 @@ class Calview extends React.Component {
       //overflow: "auto"
     };
 
+    const mycolorbox = ['lightgreen', 'lightblue'];
+
     let dataBase = this.props.reqDbase;
     let nowdata = this.props.nowShow;
-    let selectionRanges = []
+    let selectionRanges = [];
+    const myfrom = this.props.myfrom;
+      const myto = this.props.myto;
+      
+      if(myfrom!=''&&myto!=''){
+        selectionRanges= selectionRanges.concat({
+          startDate: new Date(myfrom),
+          endDate: new Date(myto),
+          color: '#FED137',
+          key: 'default today',
+        });
+      }else {
+        selectionRanges= selectionRanges.concat({
+          startDate: addDays(new Date(), 30),
+          endDate: addDays(new Date(),30),
+          color: 'white',
+          key: 'default today',
+        });
+      }
+
     for (let idx = 0; idx<nowdata.length; idx++){
       for(let user in dataBase){
-        if(nowdata[idx].name==dataBase[user].id){
+        if(nowdata[idx].name==dataBase[user].email){
           let tempdata = {
             startDate: new Date(dataBase[user].From),
             endDate: new Date(dataBase[user].To),
-            //color: 'lightgreen',
-            key: dataBase[user].username
+            color: mycolorbox[user],
+            key: dataBase[user].id
           }
           selectionRanges = selectionRanges.concat(tempdata);
         }
       }
     }
 
-    /*for (let idx = 0; idx<nowdata.length; idx++){
-      for(let user in reqData){
-        if(nowdata[idx].name==reqData[user].username){
-          let tempdata = {
-            startDate: new Date(reqData[user].From),
-            endDate: new Date(reqData[user].To),
-            //color: 'lightgreen',
-            key: reqData[user].username,
-          }
-          selectionRanges = selectionRanges.concat(tempdata);
-        }
-      }
-    }*/
-
-    if(selectionRanges.length==0){
-      selectionRanges= selectionRanges.concat({
-        startDate: new Date(),
-        endDate: new Date(),
-        color: 'lightgreen',
-        key: 'default today',
-      })
-    }
 
     let month=2;
 
@@ -104,11 +97,12 @@ class FormMing extends React.Component{
     let reqDatas = this.props.reqDbase;
     return (
       reqDatas.map((users, i) => (
-        <MyCheckbox
+        <div><MyCheckbox
           key = {i} className = "hong-checkbox"
-          request = {users.id} From = {users.From} To = {users.To}
+          request = {users.email} From = {users.From} To = {users.To}
           handleChildbox = {this.handleChildbox}
-        />))
+        />
+        </div>))
     );
   }
 }
@@ -136,6 +130,7 @@ class SubManage extends React.Component{
   }
 
   render() {
+    const ownFrom = this.props.From;
     const rcAdata  = this.props.reqDBase;
     let rcdata = [];
     for (let user = 0; user<rcAdata.length; user++){
@@ -149,10 +144,10 @@ class SubManage extends React.Component{
         </div>
         <section style={{display:'block', width: '700px', margin:'0 auto' }}>
           <div style={{width: '670px', height: '480px', borderBottom : '3px solid lightblue', margin:'2 auto'}}>
-          <Calview id="cal1" nowShow = {this.state.ranges} reqDbase ={rcdata} />
+          <Calview id="cal1" nowShow = {this.state.ranges} myfrom = {this.props.From} myto = {this.props.To} reqDbase ={rcdata} />
           </div>
           <div style = {{ width: '600px', margin:'0 auto'}}>
-            <p>Requests:  </p>
+            <p style={{ fontFamily: 'Ubuntu, sans-serif'}}>Requests:  </p>
             <FormMing handleName = {this.handleName}
               handleCalshow= {this.handleCalshow}  reqDbase ={rcdata} />
             <div className="confirmbutton">
