@@ -43,27 +43,23 @@ function MyPageCard(props) {
             <Card.Body>
                 <Card.Title>{props.RoomName}</Card.Title>
                 <Card.Text>
-                {props.Explanation}
+                    {props.Explanation}
+                </Card.Text>
+                <Card.Text>
+                    <Link to={{pathname: '/ItemInfo',state: {p : "passed"}}}>
+                        View detail
+                    </Link>
                 </Card.Text>
             </Card.Body>
-            <ListGroup className="list-group-flush">
-                <ListGroupItem>{props.From} ~ {props.To}</ListGroupItem>
-                <ListGroupItem>{props.CostperDay} Won / Day</ListGroupItem>
-                <ListGroupItem>                
-                    <Link to={{pathname: '/ItemInfo',state: {p : "passed"}}} style={{ marginRight: 30 }}>
-                    View detail
-                    </Link>
-                </ListGroupItem>
-                <ListGroupItem>
-                    {props.Confirm ? <b>Contract Complete!<br/></b> : <b>Contract in Progress<br/></b>}
-                    {props.Confirm ? 
-                    <Link to='/RequestM'>Show Contractor Info</Link> :
-                    <Link to='/RequestM'> Check Request<Badge variant="light">{props.requestNum}</Badge></Link>}
-                </ListGroupItem>
-            </ListGroup>
-            <Card.Body>
+            <ListGroupItem>
+                {props.Confirm ? <b>Contract Complete!<br/></b> : <b>Contract in Progress<br/></b>}
+                {props.Confirm ? 
+                <Button ><Link to='/RequestM' style={{ textDecoration: 'none', color: 'white'}}>Show Contractor Info</Link></Button>:
+                <Button ><Link to='/RequestM' style={{ textDecoration: 'none', color: 'white'}}> Check Request&nbsp;<Badge pill variant="danger">{props.requestNum}</Badge></Link></Button>}
+            </ListGroupItem>
+            <ListGroupItem>
                 <>
-                <div style={{display: 'flex', justifyContent: 'center'}}>
+                <div style={{display: 'flex'}}>
                     <Button variant="primary" onClick={handleShow}>
                     Advertise Your Room!
                     </Button>
@@ -84,12 +80,12 @@ function MyPageCard(props) {
                             <Button variant="link" size="sm">(?)</Button>
                         </OverlayTrigger>{' '}
                         <Form.Group controlId="domainCheckBox">
-                            <Form.Check inline type="checkbox" label="KAIST"  onChange={updateChecking}/>
-                            <Form.Check inline type="checkbox" label="Postec"  onChange={updateChecking}/>
-                            <Form.Check inline type="checkbox" label="ChungNam Univ."  onChange={updateChecking}/>
-                            <Form.Check inline type="checkbox" label="Seoul Univ."  onChange={updateChecking}/>
-                            <Form.Check inline type="checkbox" label="Korea Univ."  onChange={updateChecking}/>
-                            <Form.Check inline type="checkbox" label="Daejon Cyber Univ."  onChange={updateChecking}/>
+                            <Form.Check inline type="checkbox" label="KAIST" id="kaist" onChange={updateChecking}/>
+                            <Form.Check inline type="checkbox" label="Postec" id="postec" onChange={updateChecking}/>
+                            <Form.Check inline type="checkbox" label="ChungNam Univ." id="chungnam" onChange={updateChecking}/>
+                            <Form.Check inline type="checkbox" label="Seoul Univ." id="seoul" onChange={updateChecking}/>
+                            <Form.Check inline type="checkbox" label="Korea Univ." id="korea" onChange={updateChecking}/>
+                            <Form.Check inline type="checkbox" label="Daejon Cyber Univ." id="daejon" onChange={updateChecking}/>
                         </Form.Group> 
                         <Form.Label><b>Select target preference</b></Form.Label>
                         <OverlayTrigger
@@ -103,11 +99,10 @@ function MyPageCard(props) {
                         </OverlayTrigger>{' '}
                         <Form.Group>
                             Term<br/>
-                            <Form.Check inline type="checkbox" label="~5 days"/>
-                            <Form.Check inline type="checkbox" label="~10 days"/>
-                            <Form.Check inline type="checkbox" label="~20 days"/>
-                            <Form.Check inline type="checkbox" label="~30 days"/>
-                            <Form.Check inline type="checkbox" label="31~ days"/>
+                            <Form.Check inline type="checkbox" label="~1 week"/>
+                            <Form.Check inline type="checkbox" label="~2 weeks"/>
+                            <Form.Check inline type="checkbox" label="~3 weeks"/>
+                            <Form.Check inline type="checkbox" label="3~ weeks"/>
                         </Form.Group> 
                         <Form.Group>
                             Allow smoking<br/>
@@ -150,7 +145,7 @@ function MyPageCard(props) {
                     </Modal.Footer>
                 </Modal>
                 </>
-            </Card.Body>
+            </ListGroupItem>
             </Card>
 
   );
