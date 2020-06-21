@@ -2,17 +2,35 @@ import React, {useState} from 'react';
 import firebase from '../../components/Firestore';
 import SubManage from "./SubManage";
 
-const writeData2 = (userID, reqidx) => {
-  return firebase.firestore().collection('userID').doc(userID).collection('Request[0]').update({
-    reqidx: {
-      Confirm: true
-
-    }
-  });
-}
 const writeData1 = (userID) => {
   return firebase.firestore().collection('userID').doc(userID).update({
-      'MyRegister.Confirm': true
+    'MyRegister.Confirm': true
+  });
+}
+const writeData2 = (userID, ranges) => {
+  const db = firebase.firestore();
+  const userDoc = db.collection('userID').doc(userID);
+  userDoc.get().then(function(doc){
+    const requests = doc.data().Request;
+    let confirmedReqs = [];
+    for(let name in ranges){
+        for (let i =0; i<requests.length; i++) {
+        if(ranges[name].name==requests[i].email){
+          confirmedReqs = confirmedReqs.concat({
+              Confirm: true,
+              From: requests[i].From,
+              To: requests[i].To,
+              email: requests[i].email,
+              id: requests[i].id,
+              phone: requests[i].phone
+            });
+        }
+      }
+    }
+    console.log(confirmedReqs);
+    return firebase.firestore().collection('userID').doc(userID).update({
+      'Request': confirmedReqs
+    });
   });
 }
 
@@ -39,25 +57,18 @@ const RequestManage = props => {
   });
   
   function handleConfirming(ranges){
+
     if(ranges.length==0){
       alert("No requests selected!");
       return;
     }
-    let indexlist = [];
     
     writeData1(props.user);
-    // for(let name in ranges){
-    //   for (let i =0; i<this.requestsNum; i++) {
-    //     if(ranges[name]==this.requests[i].id){this.requests[i].Confirm = true;}
-    //     indexlist = indexlist.concat(i);
-    //   };
-    // }
-    // for(let j = 0; j<indexlist.length;j++){
-    //   writeData2('user2', j)
-    // }
+    
+    writeData2(props.user, ranges);
+
     alert("Confirm succeed!");
   }
-
 
   return (
     <>
