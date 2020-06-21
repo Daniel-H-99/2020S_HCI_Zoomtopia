@@ -54,7 +54,7 @@ function MyPageCard(props) {
             <ListGroupItem>
                 {props.Confirm ? <b>Contract Complete!<br/></b> : <b>Contract in Progress<br/></b>}
                 {props.Confirm ? 
-                <Button ><Link to='/RequestM' style={{ textDecoration: 'none', color: 'white'}}>Show Contractor Info</Link></Button>:
+                <Button ><Link to='/ConfReq' style={{ textDecoration: 'none', color: 'white'}}>Show Contractor Info</Link></Button>:
                 <Button ><Link to='/RequestM' style={{ textDecoration: 'none', color: 'white'}}> Check Request&nbsp;<Badge pill variant="danger">{props.requestNum}</Badge></Link></Button>}
             </ListGroupItem>
             <ListGroupItem>

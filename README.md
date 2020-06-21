@@ -7,7 +7,7 @@ This is for Design Project in HCI lecture in KAIST.
     - Front-end: React.js
     - Back-end: Firebase
     - Hosting: Firebase Hosting
-    - npm packages : react-create-app, react-router-dom, styled-components, bootstrap, firebase, react-youtube, react-date-range, react-dates
+    - npm packages : react-create-app, react-router-dom, styled-components, bootstrap, firebase, react-youtube, react-date-range, react-dates, @material-ui/icons
 
 ## Target User
     The university students lodgers who go back to their hometown need to offer a short-term house rental quickly during vacation 
@@ -62,9 +62,8 @@ This is for Design Project in HCI lecture in KAIST.
             Confirm
           }]
 
-
---- 
---- 
+---
+---
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

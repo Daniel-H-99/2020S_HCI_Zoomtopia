@@ -19,7 +19,7 @@ class ConfirmData extends React.Component {
 
   render() {
     return (
-      <Button variant="primary" onClick={this.handleClick} >Confirm</Button>
+    <Button variant="primary" onClick={this.handleClick} >{this.props.teXt}</Button>
     );
   }
 }

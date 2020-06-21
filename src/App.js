@@ -5,7 +5,7 @@ import {Navbar} from 'react-bootstrap';
 import MainPage from './pages/MainPage';
 import RegisterRoomPage from './pages/RegisterRoomPage';
 import RequestManage from './pages/requestComp/RequestManage'
-import SampleReq from './pages/requestComp/SampleReq';
+import ConfReq from './pages/ConfReq';
 import MyPage from './pages/MyPage';
 import ItemInfo from './pages/ItemInfo';
 import SignInModal from './components/SignInModal';
@@ -45,7 +45,7 @@ function App(props) {
               <AuthGate>
                 <Route exact path="/RegisterRoom" render={props => <RegisterRoomPage {...props} user={user}/>} />
                 <Route exact path= "/requestM" component={props => <RequestManage {...props} user={user}/>} />
-                <Route exact path= "/testsample" component={props => <SampleReq {...props} user={user}/>} />
+                <Route exact path= "/ConfReq" component={props => <ConfReq {...props} user={user}/>} />
                 <Route exact path="/MyPage" render={props => <MyPage {...props} user={user}/>} />
                 <Route exact path="/ItemInfo" component={props => <ItemInfo {...props} user={user}/>} />
               </AuthGate>

@@ -94,7 +94,7 @@ class FormMing extends React.Component{
     let reqDatas = this.props.reqDbase;
     return (
       reqDatas.map((users, i) => (
-        <div style = {{ width: '580px', margin:'0 10 0 10', padding: '10', background: 'white', borderRadius: '10px'}}><MyCheckbox
+        <div style = {{ width: '580px', margin:'0 auto', padding: '10', background: 'white', borderRadius: '10px'}}><MyCheckbox
           key = {i} className = "hong-checkbox"
           request = {users.email} From = {users.From} To = {users.To}
           handleChildbox = {this.handleChildbox}
@@ -136,20 +136,20 @@ class SubManage extends React.Component{
 
     return (
       <>
-        <div>
-          <PageTitle id = "mytitle1"/>
-        </div>
+        <br/><h2 style={{ fontFamily: 'Ubuntu, sans-serif'}}>Request Manage</h2>
+        <hr/><br/>
         <section style={{display:'block', width: '700px', margin:'0 auto' }}>
-          <div style={{width: '670px', height: '480px', borderBottom : '3px solid lightblue', margin:'2 auto'}}>
+          <div style={{width: '670px', height: '420px', borderBottom : '2px solid lightblue', margin:'2 auto'}}>
           <Calview id="cal1" nowShow = {this.state.ranges} myfrom = {this.props.From} myto = {this.props.To} reqDbase ={rcdata} />
           </div>
           <div style = {{ width: '600px', margin:'0 auto'}}>
+          <br/>
             <p style={{ fontFamily: 'Ubuntu, sans-serif'}}>Requests:  </p>
             <FormMing handleName = {this.handleName}
               handleCalshow= {this.handleCalshow}  reqDbase ={rcdata} />
             <div className="confirmbutton">
               <Link to = "/MyPage">
-                <ConfirmData handleConfirm1 = {this.handleConfirm2}/>
+                <ConfirmData teXt = {'Confirm'} handleConfirm1 = {this.handleConfirm2}/>
               </Link>
             </div>
           </div>
