@@ -32,7 +32,7 @@ class Calview extends React.Component {
       //overflow: "auto"
     };
 
-    const mycolorbox = ['lightgreen', 'lightblue'];
+    const mycolorbox = ['lightgreen', '#FED137'];
 
     let dataBase = this.props.reqDbase;
     let nowdata = this.props.nowShow;
@@ -44,7 +44,7 @@ class Calview extends React.Component {
         selectionRanges= selectionRanges.concat({
           startDate: new Date(myfrom),
           endDate: new Date(myto),
-          color: '#FED137',
+          color: 'lightblue',
           key: 'default today',
         });
       }else {
@@ -94,7 +94,7 @@ class FormMing extends React.Component{
     let reqDatas = this.props.reqDbase;
     return (
       reqDatas.map((users, i) => (
-        <div><MyCheckbox
+        <div style = {{ width: '580px', margin:'0 10 0 10', padding: '10', background: 'white', borderRadius: '10px'}}><MyCheckbox
           key = {i} className = "hong-checkbox"
           request = {users.email} From = {users.From} To = {users.To}
           handleChildbox = {this.handleChildbox}

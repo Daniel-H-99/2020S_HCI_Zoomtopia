@@ -52,7 +52,7 @@ const MyPage = props => {
       <Button style={{marginRight: 30, float: 'right'}} variant="primary">+ Register Offer</Button>
       </Link>
       }
-      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+      <br/><br/>
     </>
   );
 };
