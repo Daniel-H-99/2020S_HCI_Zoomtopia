@@ -1,7 +1,7 @@
 import React, { Component, useEffect, Suspense, useContext, useState} from 'react';
 import { Router, Route, Switch, withRouter, Redirect} from 'react-router-dom';
 import { createBrowserHistory } from 'history';
-
+import {Navbar} from 'react-bootstrap';
 import MainPage from './pages/MainPage';
 import RegisterRoomPage from './pages/RegisterRoomPage';
 import RequestManage from './pages/requestComp/RequestManage'
@@ -29,7 +29,7 @@ function App(props) {
   const [user, setUser] = useState(null);
   const [authed, setAuthed] = useState(false);
   const AuthGate = (props) => authed? props.children : <Redirect to={{
-    pathname:"/SignInModal"}}/> 
+    pathname:"/"}}/> 
   return (
     <>
     <Router history={history}>
@@ -41,7 +41,7 @@ function App(props) {
               <Route exact path="/" component= {() => <MainPage {...props} user={user} authed={authed}/>}/>
               <Route exact path="/Auth" render={props => <Auth {...props} setUser={setUser} setAuthed={setAuthed}/>}/>
               <Route exact path="/AddAuth" component = {AddAuth}/> 
-              <Route exact path="/SignInModal" render={props => <SignInModal {...props} show={true}/>}/>            
+              <Route exact path="/SignInModal" render={props => <><MainPage {...props} user={user} authed={authed}/><SignInModal {...props} show={true}/></>}/>            
               <AuthGate>
                 <Route exact path="/RegisterRoom" render={props => <RegisterRoomPage {...props} user={user}/>} />
                 <Route exact path= "/requestM" component={props => <RequestManage {...props} user={user}/>} />
