@@ -5,7 +5,7 @@ import { Route, Link, Redirect } from 'react-router-dom';
 
 const SignInModal = (props) => {
   const {modalClose} = props
-  const headerprop = props.closable?{closeButton: true}:{}
+  const headerprop = props.closable?{closeButton: true}:{closeButton: true}
   const [signIn, convert] = useState(true);
   const emailRef = useRef();
   const pwRef = useRef();
