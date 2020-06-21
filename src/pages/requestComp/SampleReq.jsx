@@ -10,7 +10,7 @@ import './SampleReq.scss';
 
 class SampleReq extends Component {
   handleSelect(ranges){
-    console.log(ranges);
+    //console.log(ranges);
     // {
     //   selection: {
     //     startDate: [native Date Object],
@@ -24,7 +24,9 @@ class SampleReq extends Component {
         ranges={this.props.ranges}
         onChange={this.handleSelect}
         months={this.props.month}
+        showSelectionPreview={false}
         direction="horizontal"
+        showPreview = {false}
       />
     )
   }
