@@ -40,7 +40,8 @@ const SignInModal = (props) => {
             pathname: '/Auth',
             state: {
               email: email,
-              pw: pw
+              pw: pw,
+              modalClose: modalClose
             }
           }}/>;
   }

@@ -37,7 +37,7 @@ const MainPage = props => {
         {rooms.map(room => {
           const photoURL = room.IntroVideo?'https://img.youtube.com/vi/'+queryParser(room.IntroVideo).v+'/0.jpg' : 'https://img.youtube.com/vi/f2V-yOVKDVU/0.jpg';
           return (
-          <Card style={{ width: '18rem' }}>
+          <Card style={{ width: '18rem', height: '30rem', padding: 0}}>
           <Card.Img variant="top" src={photoURL} />
           <Card.Body style={{height: "6rem"}}>
             <Card.Title style={{ fontWeight: 700, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis"}}>{room.RoomName}</Card.Title>
@@ -50,9 +50,17 @@ const MainPage = props => {
             <ListGroupItem>{room.RoomSize + '  m^2'}</ListGroupItem>
             <ListGroupItem>{room.From} ~ {room.To}</ListGroupItem>
           </ListGroup> 
-          <Card.Body>
-              <Button variant="secondary" style={{margin: 25}}>{" See Detail "}</Button>
-              <Button variant="secondary" style={{margin: 20}}>Contact this</Button>
+          <Card.Body style={{padding: 0, margin: 0}} >
+            <table style={{width: '100%', margin: 0, padding: 0}}>
+              <tr>
+                <th style={{width: '50%'}}>
+                  <Button variant="secondary" style={{width: '96%', margin: '2%', verticalAlign: 'middle'}}>{" See Detail "}</Button>
+                </th>
+                <th style={{width: '50%'}}>
+                  <Button variant="secondary" style={{width: '96%', margin: '2%', verticalAlign: 'middle'}}>Contact</Button>
+                </th>
+              </tr>
+            </table>
           </Card.Body>
         </Card>
         )})}

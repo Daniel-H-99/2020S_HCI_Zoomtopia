@@ -20,7 +20,7 @@ const findUserInDB = (email, password, callback) => {
 } 
 
 const Auth = (props) => {
-  var {email, pw} = props.location?props.location.state:{};
+  var {email, pw, modalClose} = props.location?props.location.state:{};
   if (email == null) {
   	email = "";
   }
